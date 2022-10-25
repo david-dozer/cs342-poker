@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -34,24 +35,86 @@ public class PokerMain extends Application {
 		// Create top bar for menu button and status message
 		HBox topBar = new HBox();
 		topBar.setPadding(new Insets(15, 12, 15, 12));
-		topBar.setSpacing(175);
-    	Button menuButton = new Button("Menu");
-    	menuButton.setMinHeight(40);
+		topBar.setSpacing(75);
+		Button menuButton = new Button("Menu");
+		menuButton.setMinHeight(40);
 		menuButton.setMinWidth(75);
 		VBox statusMsgGroup = new VBox();
 		statusMsgGroup.setAlignment(Pos.CENTER);
 		Label statusLbl = new Label("Status:");
 		TextField status = new TextField();
-		status.setMinWidth(380);
+		status.setMinWidth(580);
+		status.setAlignment(Pos.CENTER);
 		statusMsgGroup.getChildren().addAll(statusLbl, status);
 		topBar.getChildren().addAll(menuButton, statusMsgGroup);
 		
 
 
 		// Create player controls side pane
+		int textFieldWidth = 50;
+
+		VBox sidePane = new VBox();
+		sidePane.setPadding(new Insets(15, 12, 15, 12));
+		sidePane.setSpacing(15);
+
+		VBox player1Controls = new VBox();
+		player1Controls.setAlignment(Pos.CENTER);
+		TextField player1Play = new TextField();
+		player1Play.setMaxWidth(textFieldWidth);
+		player1Play.setAlignment(Pos.CENTER);
+		TextField player1Ante = new TextField();
+		player1Ante.setMaxWidth(textFieldWidth);
+		player1Ante.setAlignment(Pos.CENTER);
+		TextField player1PairPlus = new TextField();
+		player1PairPlus.setMaxWidth(textFieldWidth);
+		player1PairPlus.setAlignment(Pos.CENTER);
+		Label player1PlayLbl = new Label("Play:");
+		Label player1AnteLbl = new Label("Ante:");
+		Label player1PairPlusLbl = new Label("Pair Plus:");
+		HBox player1Buttons = new HBox();
+		Button player1PlayBtn = new Button("Play");
+		Button player1FoldBtn = new Button("Fold");
+		player1Buttons.getChildren().addAll(player1PlayBtn, player1FoldBtn);
+		player1Controls.getChildren().addAll(player1PlayLbl, player1Play,
+				player1AnteLbl, player1Ante, player1PairPlusLbl,
+				player1PairPlus, player1Buttons);
+		/*
+		TitledPane player1ControlBox = new TitledPane();
+		player1ControlBox.setText("Player 1");
+		player1ControlBox.setContent(player1Controls);
+		 */
+
+		VBox player2Controls = new VBox();
+		player2Controls.setAlignment(Pos.CENTER);
+		TextField player2Play = new TextField();
+		player2Play.setMaxWidth(textFieldWidth);
+		player2Play.setAlignment(Pos.CENTER);
+		TextField player2Ante = new TextField();
+		player2Ante.setMaxWidth(textFieldWidth);
+		player2Ante.setAlignment(Pos.CENTER);
+		TextField player2PairPlus = new TextField();
+		player2PairPlus.setMaxWidth(textFieldWidth);
+		player2PairPlus.setAlignment(Pos.CENTER);
+		Label player2AnteLbl = new Label("Ante:");
+		Label player2PairPlusLbl = new Label("Pair Plus:");
+		Label player2PlayLbl = new Label("Play:");
+		HBox player2Buttons = new HBox();
+		Button player2PlayBtn = new Button("Play");
+		Button player2FoldBtn = new Button("Fold");
+		player2Buttons.getChildren().addAll(player2PlayBtn, player2FoldBtn);
+		player2Controls.getChildren().addAll(player2PlayLbl, player2Play,
+				player2AnteLbl, player2Ante, player2PairPlusLbl,
+				player2PairPlus, player2Buttons);
+
+		VBox dealControls = new VBox();
+		Button dealBtn = new Button("Deal");
+		dealControls.setAlignment(Pos.CENTER);
+		dealControls.getChildren().addAll(dealBtn);
+
+		sidePane.getChildren().addAll(player1Controls, player2Controls, dealControls);
 
 
-		
+
 		
 		// Create grid pane to showcase poker table
 		GridPane pokerTable = new GridPane();
@@ -102,9 +165,10 @@ public class PokerMain extends Application {
 		BorderPane gameGUI = new BorderPane();
 		gameGUI.setCenter(pokerTable);
 		gameGUI.setTop(topBar);
+		gameGUI.setRight(sidePane);
 		
 		
-		int windowWidth = 1000;
+		int windowWidth = 1200;
 		int windowHeight = 600;
 		// Add GUI objects to window and display
 		Scene scene = new Scene(gameGUI, windowWidth,windowHeight);
