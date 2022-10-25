@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 
 
 public class PokerMain extends Application {
@@ -26,9 +27,34 @@ public class PokerMain extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		
-		// Create grid pane along with all GUI objects
-		GridPane gridPane = new GridPane();
-		Button menuButton = new Button("Menu");
+		
+		
+		
+		
+		// Create top bar for menu button and status message
+		HBox topBar = new HBox();
+		topBar.setPadding(new Insets(15, 12, 15, 12));
+		topBar.setSpacing(175);
+    	Button menuButton = new Button("Menu");
+    	menuButton.setMinHeight(40);
+		menuButton.setMinWidth(75);
+		VBox statusMsgGroup = new VBox();
+		statusMsgGroup.setAlignment(Pos.CENTER);
+		Label statusLbl = new Label("Status:");
+		TextField status = new TextField();
+		status.setMinWidth(380);
+		statusMsgGroup.getChildren().addAll(statusLbl, status);
+		topBar.getChildren().addAll(menuButton, statusMsgGroup);
+		
+
+
+		// Create player controls side pane
+
+
+		
+		
+		// Create grid pane to showcase poker table
+		GridPane pokerTable = new GridPane();
 		Image card1 = new Image("/4/poker-playing-card-4-club-miroslav-nemecek.jpg");
 		Image card2 = new Image("/4/poker-playing-card-4-diamond-miroslav-nemecek.jpg");
 		Image card3 = new Image("/4/poker-playing-card-4-heart-miroslav-nemecek.jpg");
@@ -47,31 +73,20 @@ public class PokerMain extends Application {
 		ImageView player2Card1 = new ImageView(card7);
 		ImageView player2Card2 = new ImageView(card8);
 		ImageView player2Card3 = new ImageView(card9);
-
+		pokerTable.setBackground(new Background(new BackgroundFill(Color.web("#008080", 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
+		pokerTable.setGridLinesVisible(true);
+		pokerTable.setHgap(10);
+		pokerTable.setVgap(10);
+		pokerTable.add(dealerCard1,2,0);
+		pokerTable.add(dealerCard2,3,0);
+		pokerTable.add(dealerCard3,4,0);
+		pokerTable.add(player1Card1,0,5);
+		pokerTable.add(player1Card2,1,5);
+		pokerTable.add(player1Card3,2,5);
+		pokerTable.add(player2Card1,4,5);
+		pokerTable.add(player2Card2,5,5);
+		pokerTable.add(player2Card3,6,5);
 		
-		//Custom attributes to make GUI look better
-		menuButton.setMinHeight(40);
-		menuButton.setMinWidth(75);
-		gridPane.setBackground(new Background(new BackgroundFill(Color.web("#008080", 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
-		gridPane.setGridLinesVisible(true);
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
-		//gridPane.setPadding(new Insets(0, 0, 0, 0));
-
-
-		// Set positions for all grid pane objects
-		//gridPane.add(menuButton,0,0);
-		gridPane.add(dealerCard1,2,0);
-		gridPane.add(dealerCard2,3,0);
-		gridPane.add(dealerCard3,4,0);
-		
-		gridPane.add(player1Card1,0,5);
-		gridPane.add(player1Card2,1,5);
-		gridPane.add(player1Card3,2,5);
-		
-		gridPane.add(player2Card1,4,5);
-		gridPane.add(player2Card2,5,5);
-		gridPane.add(player2Card3,6,5);
 		
 		
 		//Set event handlers for objects
@@ -81,10 +96,18 @@ public class PokerMain extends Application {
 			}
 		});	
 		
-		int windowWidth = 1100;
+		
+		
+		// Create bordepane for all GUI elements
+		BorderPane gameGUI = new BorderPane();
+		gameGUI.setCenter(pokerTable);
+		gameGUI.setTop(topBar);
+		
+		
+		int windowWidth = 1000;
 		int windowHeight = 600;
 		// Add GUI objects to window and display
-		Scene scene = new Scene(gridPane, windowWidth,windowHeight);
+		Scene scene = new Scene(gameGUI, windowWidth,windowHeight);
 		primaryStage.setTitle("3 Card Poker");
 		primaryStage.setScene(scene);
 		primaryStage.setMinHeight(windowHeight);
