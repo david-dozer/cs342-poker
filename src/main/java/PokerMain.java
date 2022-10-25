@@ -37,8 +37,8 @@ public class PokerMain extends Application {
 		topBar.setPadding(new Insets(15, 12, 15, 12));
 		topBar.setSpacing(75);
 		Button menuButton = new Button("Menu");
-		menuButton.setMinHeight(40);
-		menuButton.setMinWidth(75);
+		menuButton.setMinHeight(50);
+		menuButton.setMinWidth(95);
 		VBox statusMsgGroup = new VBox();
 		statusMsgGroup.setAlignment(Pos.CENTER);
 		Label statusLbl = new Label("Status:");
@@ -55,7 +55,7 @@ public class PokerMain extends Application {
 
 		VBox sidePane = new VBox();
 		sidePane.setPadding(new Insets(15, 12, 15, 12));
-		sidePane.setSpacing(15);
+		sidePane.setSpacing(10);
 
 		VBox player1Controls = new VBox();
 		player1Controls.setAlignment(Pos.CENTER);
@@ -74,15 +74,16 @@ public class PokerMain extends Application {
 		HBox player1Buttons = new HBox();
 		Button player1PlayBtn = new Button("Play");
 		Button player1FoldBtn = new Button("Fold");
+		player1Buttons.setPadding(new Insets(5, 4, 5, 4));
+		player1Buttons.setSpacing(5);
 		player1Buttons.getChildren().addAll(player1PlayBtn, player1FoldBtn);
 		player1Controls.getChildren().addAll(player1PlayLbl, player1Play,
 				player1AnteLbl, player1Ante, player1PairPlusLbl,
 				player1PairPlus, player1Buttons);
-		/*
 		TitledPane player1ControlBox = new TitledPane();
 		player1ControlBox.setText("Player 1");
 		player1ControlBox.setContent(player1Controls);
-		 */
+
 
 		VBox player2Controls = new VBox();
 		player2Controls.setAlignment(Pos.CENTER);
@@ -101,23 +102,31 @@ public class PokerMain extends Application {
 		HBox player2Buttons = new HBox();
 		Button player2PlayBtn = new Button("Play");
 		Button player2FoldBtn = new Button("Fold");
+		player2Buttons.setPadding(new Insets(5, 4, 5, 4));
+		player2Buttons.setSpacing(5);
 		player2Buttons.getChildren().addAll(player2PlayBtn, player2FoldBtn);
 		player2Controls.getChildren().addAll(player2PlayLbl, player2Play,
 				player2AnteLbl, player2Ante, player2PairPlusLbl,
 				player2PairPlus, player2Buttons);
+		TitledPane player2ControlBox = new TitledPane();
+		player2ControlBox.setText("Player 2");
+		player2ControlBox.setContent(player2Controls);
 
 		VBox dealControls = new VBox();
 		Button dealBtn = new Button("Deal");
+		dealBtn.setMinHeight(40);
+		dealBtn.setMinWidth(70);
 		dealControls.setAlignment(Pos.CENTER);
 		dealControls.getChildren().addAll(dealBtn);
 
-		sidePane.getChildren().addAll(player1Controls, player2Controls, dealControls);
+		sidePane.getChildren().addAll(player1ControlBox, player2ControlBox, dealControls);
 
 
 
 		
 		// Create grid pane to showcase poker table
 		GridPane pokerTable = new GridPane();
+		pokerTable.setPadding(new Insets(10,10,10,10));
 		Image card1 = new Image("/4/poker-playing-card-4-club-miroslav-nemecek.jpg");
 		Image card2 = new Image("/4/poker-playing-card-4-diamond-miroslav-nemecek.jpg");
 		Image card3 = new Image("/4/poker-playing-card-4-heart-miroslav-nemecek.jpg");
@@ -168,7 +177,7 @@ public class PokerMain extends Application {
 		gameGUI.setRight(sidePane);
 		
 		
-		int windowWidth = 1200;
+		int windowWidth = 1070;
 		int windowHeight = 600;
 		// Add GUI objects to window and display
 		Scene scene = new Scene(gameGUI, windowWidth,windowHeight);
