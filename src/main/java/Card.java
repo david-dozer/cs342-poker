@@ -8,4 +8,8 @@ public class Card {
 		this.value = value;
 		this.url = url;
 	}
+	
+	public void setURL(String url) {
+		this.url = url;
+	}
 };
