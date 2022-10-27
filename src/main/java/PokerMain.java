@@ -34,7 +34,7 @@ public class PokerMain extends Application {
 		
 		// Create top bar for menu button and status message
 		HBox topBar = new HBox();
-		topBar.setPadding(new Insets(15, 12, 15, 12));
+		//topBar.setPadding(new Insets(15, 12, 15, 12));
 		topBar.setSpacing(75);
 		Button menuButton = new Button("Menu");
 		menuButton.setMinHeight(50);
@@ -52,13 +52,14 @@ public class PokerMain extends Application {
 
 		// Create player controls side pane
 		int textFieldWidth = 50;
-
+		
+		
 		VBox sidePane = new VBox();
-		sidePane.setPadding(new Insets(15, 12, 15, 12));
+		//sidePane.setPadding(new Insets(15, 12, 15, 12));
 		sidePane.setSpacing(10);
-
+		// Player 1 Controls box
 		VBox player1Controls = new VBox();
-		player1Controls.setAlignment(Pos.CENTER);
+		player1Controls.setAlignment(Pos.CENTER);		
 		TextField player1Play = new TextField();
 		player1Play.setMaxWidth(textFieldWidth);
 		player1Play.setAlignment(Pos.CENTER);
@@ -161,14 +162,6 @@ public class PokerMain extends Application {
 		
 		
 		
-		//Set event handlers for objects
-		menuButton.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){
-				menuButton.setText("Menu!");
-			}
-		});	
-		
-		
 		
 		// Create bordepane for all GUI elements
 		BorderPane gameGUI = new BorderPane();
@@ -177,17 +170,54 @@ public class PokerMain extends Application {
 		gameGUI.setRight(sidePane);
 		
 		
+		
+		// Options page
+		VBox options = new VBox();
+		Button exitBtn = new Button("Exit");
+		Button freshStartBtn = new Button("Fresh Start");
+		Button newLookBtn = new Button("New Look");
+		options.setPadding(new Insets(15, 12, 15, 12));
+		options.setSpacing(75);
+		options.getChildren().addAll(freshStartBtn, newLookBtn, exitBtn);
+		HBox topBar2 = new HBox();
+		//topBar2.setPadding(new Insets(15, 12, 15, 12));
+		topBar2.setSpacing(75);
+		Button menuButton2 = new Button("Menu");
+		menuButton2.setMinHeight(50);
+		menuButton2.setMinWidth(95);
+		topBar2.getChildren().addAll(menuButton2);
+		BorderPane menuGUI = new BorderPane();
+		menuGUI.setCenter(options);
+		menuGUI.setTop(topBar2);
+		
+		
+		
+		
 		int windowWidth = 1070;
-		int windowHeight = 600;
+		int windowHeight = 650;
 		// Add GUI objects to window and display
-		Scene scene = new Scene(gameGUI, windowWidth,windowHeight);
+		Scene gameScene = new Scene(gameGUI, windowWidth, windowHeight);
+		Scene optionsScene = new Scene(menuGUI, windowWidth, windowHeight);
 		primaryStage.setTitle("3 Card Poker");
-		primaryStage.setScene(scene);
-		primaryStage.setMinHeight(windowHeight);
-		primaryStage.setMinWidth(windowWidth);
-		primaryStage.setMaxHeight(windowHeight);
-		primaryStage.setMaxWidth(windowWidth);
+		primaryStage.setScene(optionsScene);
+		primaryStage.setResizable(false);
+		
 		primaryStage.show();
+		
+		//Set event handlers for objects
+		menuButton.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				primaryStage.setScene(optionsScene);
+			}
+		});
+		
+		menuButton2.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				primaryStage.setScene(gameScene);
+			}
+		});
+		
+		
 	}
 
 }
