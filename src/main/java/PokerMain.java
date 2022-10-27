@@ -171,7 +171,7 @@ public class PokerMain extends Application {
 		
 		
 		
-		// Create bordepane for all GUI elements
+		// Create bordepane for all poker table gui nodes
 		BorderPane gameGUI = new BorderPane();
 		gameGUI.setCenter(pokerTable);
 		gameGUI.setTop(topBar);
@@ -205,6 +205,23 @@ public class PokerMain extends Application {
 		menuGUI.setTop(topBar2);
 		
 		
+		// New Look page
+		VBox newLook = new VBox();
+		newLook.setPadding(new Insets(15, 12, 15, 12));
+		newLook.setSpacing(15);
+		//newLook.getChildren().addAll(freshStartBtn, newLookBtn, exitBtn);
+		HBox topBar3 = new HBox();
+		topBar3.setPadding(new Insets(15, 12, 15, 12));
+		topBar3.setSpacing(75);
+		Button menuButton3 = new Button("Menu");
+		menuButton3.setMinHeight(50);
+		menuButton3.setMinWidth(95);
+		topBar3.getChildren().addAll(menuButton3);
+		BorderPane newLookGUI = new BorderPane();
+		newLookGUI.setCenter(newLook);
+		newLookGUI.setTop(topBar3);
+		
+		
 		
 		
 		int windowWidth = 1070;
@@ -212,10 +229,10 @@ public class PokerMain extends Application {
 		// Add GUI objects to window and display
 		Scene gameScene = new Scene(gameGUI, windowWidth, windowHeight);
 		Scene optionsScene = new Scene(menuGUI, windowWidth, windowHeight);
+		Scene newLookScene = new Scene(newLookGUI, windowWidth, windowHeight);
 		primaryStage.setTitle("3 Card Poker");
 		primaryStage.setScene(optionsScene);
 		primaryStage.setResizable(false);
-		
 		primaryStage.show();
 		
 		//Set event handlers for objects
@@ -228,6 +245,18 @@ public class PokerMain extends Application {
 		menuButton2.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				primaryStage.setScene(gameScene);
+			}
+		});
+		
+		newLookBtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				primaryStage.setScene(newLookScene);
+			}
+		});
+		
+		menuButton3.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				primaryStage.setScene(optionsScene);
 			}
 		});
 		
