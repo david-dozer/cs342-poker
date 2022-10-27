@@ -61,9 +61,12 @@ public class PokerMain extends Application {
 		VBox player1Controls = new VBox();
 		player1Controls.setAlignment(Pos.CENTER);
 		TextField player1Winnings = new TextField();
+		player1Winnings.setEditable(false);
 		player1Winnings.setMaxWidth(textFieldWidth);
 		player1Winnings.setAlignment(Pos.CENTER);
 		TextField player1Play = new TextField();
+		player1Play.setEditable(false);
+		player1Play.setText("Test");
 		player1Play.setMaxWidth(textFieldWidth);
 		player1Play.setAlignment(Pos.CENTER);
 		TextField player1Ante = new TextField();
@@ -93,9 +96,11 @@ public class PokerMain extends Application {
 		VBox player2Controls = new VBox();
 		player2Controls.setAlignment(Pos.CENTER);
 		TextField player2Winnings = new TextField();
+		player2Winnings.setEditable(false);
 		player2Winnings.setMaxWidth(textFieldWidth);
 		player2Winnings.setAlignment(Pos.CENTER);
 		TextField player2Play = new TextField();
+		player2Play.setEditable(false);
 		player2Play.setMaxWidth(textFieldWidth);
 		player2Play.setAlignment(Pos.CENTER);
 		TextField player2Ante = new TextField();
