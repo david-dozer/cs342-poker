@@ -3,7 +3,7 @@ public class Card {
 	int value;
 	String url; // each card retrieved image
 	
-	public Card(char suit, int value, String url) {
+	public Card(char suit, int value) {
 		this.suit = suit;
 		this.value = value;
 		this.url = url;
