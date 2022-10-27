@@ -259,8 +259,6 @@ public class PokerMain extends Application {
 				primaryStage.setScene(optionsScene);
 			}
 		});
-		
-		
 	}
 
 }
