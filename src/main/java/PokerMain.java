@@ -184,8 +184,14 @@ public class PokerMain extends Application {
 		Button exitBtn = new Button("Exit");
 		Button freshStartBtn = new Button("Fresh Start");
 		Button newLookBtn = new Button("New Look");
+		exitBtn.setMinHeight(50);
+		exitBtn.setMinWidth(95);
+		freshStartBtn.setMinHeight(50);
+		freshStartBtn.setMinWidth(95);
+		newLookBtn.setMinHeight(50);
+		newLookBtn.setMinWidth(95);
 		options.setPadding(new Insets(15, 12, 15, 12));
-		options.setSpacing(75);
+		options.setSpacing(15);
 		options.getChildren().addAll(freshStartBtn, newLookBtn, exitBtn);
 		HBox topBar2 = new HBox();
 		topBar2.setPadding(new Insets(15, 12, 15, 12));
