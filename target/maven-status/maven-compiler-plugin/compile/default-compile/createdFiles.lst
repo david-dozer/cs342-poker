@@ -1,5 +1,9 @@
 PokerMain$2.class
+Dealer.class
 Card.class
+ThreeCardPokerGame.class
 PokerMain.class
+Player.class
+Deck.class
 PokerMain$1.class
 Options.class

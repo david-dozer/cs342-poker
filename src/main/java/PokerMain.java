@@ -34,7 +34,7 @@ public class PokerMain extends Application {
 		
 		// Create top bar for menu button and status message
 		HBox topBar = new HBox();
-		//topBar.setPadding(new Insets(15, 12, 15, 12));
+		topBar.setPadding(new Insets(15, 12, 15, 12));
 		topBar.setSpacing(75);
 		Button menuButton = new Button("Menu");
 		menuButton.setMinHeight(50);
@@ -55,11 +55,14 @@ public class PokerMain extends Application {
 		
 		
 		VBox sidePane = new VBox();
-		//sidePane.setPadding(new Insets(15, 12, 15, 12));
+		sidePane.setPadding(new Insets(15, 12, 15, 12));
 		sidePane.setSpacing(10);
 		// Player 1 Controls box
 		VBox player1Controls = new VBox();
-		player1Controls.setAlignment(Pos.CENTER);		
+		player1Controls.setAlignment(Pos.CENTER);
+		TextField player1Winnings = new TextField();
+		player1Winnings.setMaxWidth(textFieldWidth);
+		player1Winnings.setAlignment(Pos.CENTER);
 		TextField player1Play = new TextField();
 		player1Play.setMaxWidth(textFieldWidth);
 		player1Play.setAlignment(Pos.CENTER);
@@ -69,6 +72,7 @@ public class PokerMain extends Application {
 		TextField player1PairPlus = new TextField();
 		player1PairPlus.setMaxWidth(textFieldWidth);
 		player1PairPlus.setAlignment(Pos.CENTER);
+		Label player1WinningsLbl = new Label("Your money:");
 		Label player1PlayLbl = new Label("Play:");
 		Label player1AnteLbl = new Label("Ante:");
 		Label player1PairPlusLbl = new Label("Pair Plus:");
@@ -78,7 +82,7 @@ public class PokerMain extends Application {
 		player1Buttons.setPadding(new Insets(5, 4, 5, 4));
 		player1Buttons.setSpacing(5);
 		player1Buttons.getChildren().addAll(player1PlayBtn, player1FoldBtn);
-		player1Controls.getChildren().addAll(player1PlayLbl, player1Play,
+		player1Controls.getChildren().addAll(player1WinningsLbl, player1Winnings, player1PlayLbl, player1Play,
 				player1AnteLbl, player1Ante, player1PairPlusLbl,
 				player1PairPlus, player1Buttons);
 		TitledPane player1ControlBox = new TitledPane();
@@ -88,6 +92,9 @@ public class PokerMain extends Application {
 
 		VBox player2Controls = new VBox();
 		player2Controls.setAlignment(Pos.CENTER);
+		TextField player2Winnings = new TextField();
+		player2Winnings.setMaxWidth(textFieldWidth);
+		player2Winnings.setAlignment(Pos.CENTER);
 		TextField player2Play = new TextField();
 		player2Play.setMaxWidth(textFieldWidth);
 		player2Play.setAlignment(Pos.CENTER);
@@ -97,6 +104,7 @@ public class PokerMain extends Application {
 		TextField player2PairPlus = new TextField();
 		player2PairPlus.setMaxWidth(textFieldWidth);
 		player2PairPlus.setAlignment(Pos.CENTER);
+		Label player2WinningsLbl = new Label("Your money:");
 		Label player2AnteLbl = new Label("Ante:");
 		Label player2PairPlusLbl = new Label("Pair Plus:");
 		Label player2PlayLbl = new Label("Play:");
@@ -106,7 +114,7 @@ public class PokerMain extends Application {
 		player2Buttons.setPadding(new Insets(5, 4, 5, 4));
 		player2Buttons.setSpacing(5);
 		player2Buttons.getChildren().addAll(player2PlayBtn, player2FoldBtn);
-		player2Controls.getChildren().addAll(player2PlayLbl, player2Play,
+		player2Controls.getChildren().addAll(player2WinningsLbl, player2Winnings, player2PlayLbl, player2Play,
 				player2AnteLbl, player2Ante, player2PairPlusLbl,
 				player2PairPlus, player2Buttons);
 		TitledPane player2ControlBox = new TitledPane();
@@ -180,7 +188,7 @@ public class PokerMain extends Application {
 		options.setSpacing(75);
 		options.getChildren().addAll(freshStartBtn, newLookBtn, exitBtn);
 		HBox topBar2 = new HBox();
-		//topBar2.setPadding(new Insets(15, 12, 15, 12));
+		topBar2.setPadding(new Insets(15, 12, 15, 12));
 		topBar2.setSpacing(75);
 		Button menuButton2 = new Button("Menu");
 		menuButton2.setMinHeight(50);
