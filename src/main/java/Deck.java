@@ -1,4 +1,3 @@
-// import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,7 +15,8 @@ public class Deck extends ArrayList<Card> {
 
         for (char s : suits) {
             for (int v : vals) {  // in arrayList, not bracket operator, but get
-            	this.add(new Card(s, v)); this.get(count).setURL(urls[count]);  
+            	Card card = new Card(s, v);
+            	this.add(card); this.get(count).setURL(urls[count]);  
                 count++;
             }
         }
@@ -33,8 +33,9 @@ public class Deck extends ArrayList<Card> {
         // cards 2-10, 11-13 are Jack Queen King, respectively, 14 is Ace, highest card
 
         for (char s : suits) {
-            for (int v : vals) {  // in arrayList, not bracket operator, but get
-            	this.add(new Card(s, v)); this.get(count).setURL(urls[count]);  
+        	for (int v : vals) {  // in arrayList, not bracket operator, but get
+            	Card card = new Card(s, v);
+            	this.add(card); this.get(count).setURL(urls[count]);  
                 count++;
             }
         }
