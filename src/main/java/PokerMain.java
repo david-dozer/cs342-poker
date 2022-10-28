@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
+import javafx.application.Platform;
 
 
 public class PokerMain extends Application {
@@ -272,6 +273,12 @@ public class PokerMain extends Application {
 		menuButton3.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				primaryStage.setScene(optionsScene);
+			}
+		});
+		
+		exitBtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				System.exit(0);
 			}
 		});
 	}
