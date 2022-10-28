@@ -13,42 +13,48 @@ import java.util.ArrayList;
 class DeckandDealerTests {
 	
 	// temp url, real ones put in in the pokerMain
-	@BeforeAll
-	public String[] urlArray() {
-		String urls[] = new String[52];
+	public static void urlArray(String[] urls) {
 		for (int i = 0; i < 52; i++) {
 			urls[i] = "url";
 		}
-		return urls;
 	}
 	
-	String urls[] = urlArray();
-	Deck deck = new Deck(urls);
 	
 	@Test
 	void testDeckConstructor() {
+		String urls[] = new String[52];
+		urlArray(urls);
+		Deck deck = new Deck(urls);
 		Assertions.assertEquals(52, deck.size);
 	}
 	
 	@Test
 	void urlsInCards() {
+		String urls[] = new String[52];
+		urlArray(urls);
+		Deck deck = new Deck(urls);
 		for (int i = 0; i < 52; i++) {
 			Assertions.assertEquals("url", deck.get(i).url);
 		}
 	}
-	
+//	
 	@Test
 	void newDeckTest( ) {
+		String urls[] = new String[52];
+		urlArray(urls);
+		Deck deck = new Deck(urls);
 		deck.NewDeck(urls);
 		Assertions.assertEquals(52, deck.size);
 		for (int i = 0; i < 52; i++) {
 			Assertions.assertEquals("url", deck.get(i).url);
 		}
 	}
-	
+//	
 	@Test
 	void DealerConstructor( ) {
-		Dealer dealer = new Dealer ();
+		String urls[] = new String[52];
+		urlArray(urls);
+		Dealer dealer = new Dealer();
 		dealer.urls = urls;
 		Assertions.assertEquals(52, dealer.theDeck.size);
 		Assertions.assertEquals(0, dealer.dealersHand.size());
