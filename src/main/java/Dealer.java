@@ -13,6 +13,10 @@ public class Dealer {
 	
 	// getters for deck and dealer hand?
 	
+	public void setURLImages(String urls[]) {
+		this.urls = urls;
+	}
+	
 	public ArrayList<Card> dealHand() {
 		if (theDeck.size < 34) { theDeck.NewDeck(urls);}  // new deck
 		ArrayList<Card> h = new ArrayList<Card>();
