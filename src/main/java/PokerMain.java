@@ -44,8 +44,12 @@ public class PokerMain extends Application {
 		statusMsgGroup.setAlignment(Pos.CENTER);
 		Label statusLbl = new Label("Status:");
 		TextField status = new TextField();
-		status.setMinWidth(580);
+		//status.setMinWidth(580);
 		status.setAlignment(Pos.CENTER);
+		status.setEditable(false);
+		status.setMinHeight(35);
+		status.setMinWidth(580);
+		status.setText("Hey");
 		statusMsgGroup.getChildren().addAll(statusLbl, status);
 		topBar.getChildren().addAll(menuButton, statusMsgGroup);
 		
