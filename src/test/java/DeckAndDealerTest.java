@@ -33,7 +33,7 @@ class DeckandDealerTests {
 	@Test
 	void urlsInCards() {
 		for (int i = 0; i < 52; i++) {
-			Assertions.assertEquals("url", deck.get(i));
+			Assertions.assertEquals("url", deck.get(i).url);
 		}
 	}
 	
@@ -42,7 +42,7 @@ class DeckandDealerTests {
 		deck.NewDeck(urls);
 		Assertions.assertEquals(52, deck.size);
 		for (int i = 0; i < 52; i++) {
-			Assertions.assertEquals("url", deck.get(i));
+			Assertions.assertEquals("url", deck.get(i).url);
 		}
 	}
 	
