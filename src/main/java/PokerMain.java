@@ -213,8 +213,18 @@ public class PokerMain extends Application {
 		// New Look page
 		VBox newLook = new VBox();
 		newLook.setPadding(new Insets(15, 12, 15, 12));
-		newLook.setSpacing(15);
-		//newLook.getChildren().addAll(freshStartBtn, newLookBtn, exitBtn);
+		newLook.setSpacing(30);
+		newLook.setAlignment(Pos.CENTER);
+		VBox setImageControls = new VBox();
+		setImageControls.setAlignment(Pos.CENTER);
+		Label imagePathLbl = new Label("Card Backside Image (120x180 only):");
+		TextField imagePath = new TextField("C:/Users/[account]/Pictures/[something].jpg");
+		Button setNewImage = new Button("Set card backside!");
+		imagePath.setMaxWidth(400);
+		setImageControls.getChildren().addAll(imagePathLbl, imagePath, setNewImage);
+		VBox setFontControls = new VBox();
+		
+		newLook.getChildren().addAll(setImageControls);
 		HBox topBar3 = new HBox();
 		topBar3.setPadding(new Insets(15, 12, 15, 12));
 		topBar3.setSpacing(75);
@@ -236,7 +246,7 @@ public class PokerMain extends Application {
 		Scene optionsScene = new Scene(menuGUI, windowWidth, windowHeight);
 		Scene newLookScene = new Scene(newLookGUI, windowWidth, windowHeight);
 		primaryStage.setTitle("3 Card Poker");
-		primaryStage.setScene(optionsScene);
+		primaryStage.setScene(gameScene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
 		
