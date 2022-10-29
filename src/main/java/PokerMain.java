@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.application.Platform;
+import javafx.scene.text.*;
 
 
 public class PokerMain extends Application {
@@ -31,7 +32,7 @@ public class PokerMain extends Application {
 		// Create top bar for menu button and status message
 		HBox topBar = new HBox();
 		topBar.setPadding(new Insets(15, 12, 15, 12));
-		topBar.setSpacing(75);
+		topBar.setSpacing(35);
 		Button menuButton = new Button("Menu");
 		menuButton.setMinHeight(50);
 		menuButton.setMinWidth(95);
@@ -43,7 +44,7 @@ public class PokerMain extends Application {
 		status.setAlignment(Pos.CENTER);
 		status.setEditable(false);
 		status.setMinHeight(35);
-		status.setMinWidth(580);
+		status.setMinWidth(770);
 		status.setText("Hey");
 		statusMsgGroup.getChildren().addAll(statusLbl, status);
 		topBar.getChildren().addAll(menuButton, statusMsgGroup);
@@ -233,12 +234,12 @@ public class PokerMain extends Application {
 		setFontButtonControls.setSpacing(30);
 		Label setFontLbl = new Label("Set status message font:");
 		ToggleGroup fontGroup = new ToggleGroup();
-		RadioButton fontbutton1 = new RadioButton("A");
+		RadioButton fontbutton1 = new RadioButton("Normal");
 		fontbutton1.setToggleGroup(fontGroup);
 		fontbutton1.setSelected(true);
-		RadioButton fontbutton2 = new RadioButton("B");
+		RadioButton fontbutton2 = new RadioButton("Larger Font");
 		fontbutton2.setToggleGroup(fontGroup);
-		RadioButton fontbutton3 = new RadioButton("C");
+		RadioButton fontbutton3 = new RadioButton("Bold");
 		fontbutton3.setToggleGroup(fontGroup);
 		setFontButtonControls.getChildren().addAll(fontbutton1, fontbutton2, fontbutton3);
 		setFontControls.getChildren().addAll(setFontLbl, setFontButtonControls);
@@ -275,7 +276,6 @@ public class PokerMain extends Application {
 		
 		
 		
-		
 		int windowWidth = 1070;
 		int windowHeight = 650;
 		// Add GUI objects to window and display
@@ -286,6 +286,8 @@ public class PokerMain extends Application {
 		primaryStage.setScene(gameScene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+		
+		
 		
 		//Set event handlers for objects
 		menuButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -342,6 +344,24 @@ public class PokerMain extends Application {
 			}
 		});
 		
+		fontbutton1.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				status.setFont(Font.font("Verdana", FontWeight.NORMAL, FontPosture.REGULAR, 13));
+			}
+		});
+		
+		fontbutton2.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				status.setFont(Font.font("Helvetica", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			}
+		});
+		
+		fontbutton3.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				status.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, FontPosture.REGULAR, 12));
+			}
+		});
+		
 		setNewImage.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				String imageLocationText = imagePath.getText();
@@ -351,5 +371,4 @@ public class PokerMain extends Application {
 			}
 		});
 	}
-
 }
