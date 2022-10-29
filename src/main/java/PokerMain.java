@@ -45,7 +45,6 @@ public class PokerMain extends Application {
 		status.setEditable(false);
 		status.setMinHeight(35);
 		status.setMinWidth(770);
-		status.setText("Hey");
 		statusMsgGroup.getChildren().addAll(statusLbl, status);
 		topBar.getChildren().addAll(menuButton, statusMsgGroup);
 		
@@ -67,7 +66,6 @@ public class PokerMain extends Application {
 		player1Winnings.setAlignment(Pos.CENTER);
 		TextField player1Play = new TextField();
 		player1Play.setEditable(false);
-		player1Play.setText("Test");
 		player1Play.setMaxWidth(textFieldWidth);
 		player1Play.setAlignment(Pos.CENTER);
 		TextField player1Ante = new TextField();
