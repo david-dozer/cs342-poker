@@ -11,5 +11,4 @@
       E-->F[Wait for P1 to fold or play];
       F-->G[Wait for P2 to fold or play];
       G-->H[Show dealer cards; <br> perform payouts;];
-      H-->C;
 ```
