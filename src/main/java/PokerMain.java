@@ -28,10 +28,6 @@ public class PokerMain extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		
-		
-		
-		
-		
 		// Create top bar for menu button and status message
 		HBox topBar = new HBox();
 		topBar.setPadding(new Insets(15, 12, 15, 12));
@@ -153,7 +149,7 @@ public class PokerMain extends Application {
 		Image card6 = new Image("/5/poker-playing-card-5-heart-miroslav-nemecek.jpg");
 		Image card7 = new Image("/6/poker-playing-card-6-club-miroslav-nemecek.jpg");
 		Image card8 = new Image("/6/poker-playing-card-6-diamond-miroslav-nemecek.jpg");
-		Image card9 = new Image("/6/poker-playing-card-6-heart-miroslav-nemecek.jpg");
+		Image card9 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
 		ImageView dealerCard1 = new ImageView(card1);
 		ImageView dealerCard2 = new ImageView(card2);
 		ImageView dealerCard3 = new ImageView(card3);
@@ -343,6 +339,15 @@ public class PokerMain extends Application {
 				pokerTable.setBackground(new Background(
 					new BackgroundFill(Color.web("#6050dc", 0.5), 
 					CornerRadii.EMPTY, Insets.EMPTY)));
+			}
+		});
+		
+		setNewImage.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				String imageLocationText = imagePath.getText();
+				System.out.println(imageLocationText);
+				Image card10 = new Image(imageLocationText);
+				player2Card3.setImage(card10);
 			}
 		});
 	}
