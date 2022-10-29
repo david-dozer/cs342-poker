@@ -13,23 +13,65 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class ThreeCardLogicTests {
 
-	@BeforeEach
-	public String[] urlArray() {
-		String urls[] = new String[52];
-		for (int i = 0; i < 52; i++) {
-			urls[i] = "url";
-		}
-		return urls;
-	}
-	
+//	@BeforeEach
+//	public String[] urlArray() {
+//		String urls[] = new String[52];
+//		for (int i = 0; i < 52; i++) {
+//			urls[i] = "url";
+//		}
+//		return urls;
+//	}
+//	
 	@Test
 	void testEvalHandHighCard() {
 		ArrayList<Card> hand = new ArrayList<Card> ();
-		hand.add(new Card('C', 14)); hand.get(0).setURL("url");
-		System.out.printf(hand.get(0).suit + " " + hand.get(0).value, " ");
-		hand.add(new Card('D', 2)); hand.get(1).setURL("url");
-		hand.add(new Card('S', 3)); hand.get(2).setURL("url"); 
+		hand.add(new Card('C', 14)); // hand.get(0).setURL("url");
+		//System.out.printf(hand.get(0).suit + " " + hand.get(0).value, " ");
+		hand.add(new Card('D', 2)); // hand.get(1).setURL("url");
+		hand.add(new Card('S', 3)); // hand.get(2).setURL("url"); 
 		Assertions.assertEquals(0, ThreeCardLogic.evalHand(hand));
 	}
+	
+	@Test
+	void testEvalPair() {
+		ArrayList<Card> hand = new ArrayList<Card> ();
+		hand.add(new Card('C', 14)); // hand.get(0).setURL("url");
+		//System.out.printf(hand.get(0).suit + " " + hand.get(0).value, " ");
+		hand.add(new Card('D', 14)); // hand.get(1).setURL("url");
+		hand.add(new Card('S', 3)); // hand.get(2).setURL("url"); 
+		Assertions.assertEquals(5, ThreeCardLogic.evalHand(hand));
+	}
+	
+	@Test
+	void testEvalFlush() {
+		ArrayList<Card> hand = new ArrayList<Card> ();
+		hand.add(new Card('S', 14)); // hand.get(0).setURL("url");
+		//System.out.printf(hand.get(0).suit + " " + hand.get(0).value, " ");
+		hand.add(new Card('S', 4)); // hand.get(1).setURL("url");
+		hand.add(new Card('S', 9)); // hand.get(2).setURL("url"); 
+		Assertions.assertEquals(4, ThreeCardLogic.evalHand(hand));
+	}
+	
+	@Test
+	void testEvalStraight() {
+		ArrayList<Card> hand = new ArrayList<Card> ();
+		hand.add(new Card('S', 14)); // hand.get(0).setURL("url");
+		hand.add(new Card('D', 13)); // hand.get(1).setURL("url");
+		hand.add(new Card('C', 12)); // hand.get(2).setURL("url");
+		for (Card h : hand) {
+			System.out.printf("\n" + h.suit + " " + h.value);
+		}
+		Assertions.assertEquals(3, ThreeCardLogic.evalHand(hand));
+	}
+	
+	void testThreeOfAKind() {
+		ArrayList<Card> hand = new ArrayList<Card> ();
+		hand.add(new Card('S', 12)); // hand.get(0).setURL("url");
+		//System.out.printf(hand.get(0).suit + " " + hand.get(0).value, " ");
+		hand.add(new Card('D', 12)); // hand.get(1).setURL("url");
+		hand.add(new Card('C', 12)); // hand.get(2).setURL("url"); 
+		Assertions.assertEquals(2, ThreeCardLogic.evalHand(hand));
+	}
+
 
 }
