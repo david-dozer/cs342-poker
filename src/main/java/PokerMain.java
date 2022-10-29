@@ -163,7 +163,9 @@ public class PokerMain extends Application {
 		ImageView player2Card1 = new ImageView(card7);
 		ImageView player2Card2 = new ImageView(card8);
 		ImageView player2Card3 = new ImageView(card9);
-		pokerTable.setBackground(new Background(new BackgroundFill(Color.web("#008080", 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
+		pokerTable.setBackground(new Background(
+				new BackgroundFill(Color.web("#008080", 0.5), 
+				CornerRadii.EMPTY, Insets.EMPTY)));
 		pokerTable.setGridLinesVisible(true);
 		pokerTable.setHgap(10);
 		pokerTable.setVgap(10);
@@ -310,13 +312,37 @@ public class PokerMain extends Application {
 		
 		menuButton3.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				primaryStage.setScene(optionsScene);
+				primaryStage.setScene(gameScene);
 			}
 		});
 		
 		exitBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				System.exit(0);
+			}
+		});
+		
+		colorbutton1.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				pokerTable.setBackground(new Background(
+					new BackgroundFill(Color.web("#008080", 0.5), 
+					CornerRadii.EMPTY, Insets.EMPTY)));
+			}
+		});
+		
+		colorbutton2.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				pokerTable.setBackground(new Background(
+					new BackgroundFill(Color.web("#b03060", 0.5), 
+					CornerRadii.EMPTY, Insets.EMPTY)));
+			}
+		});
+		
+		colorbutton3.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				pokerTable.setBackground(new Background(
+					new BackgroundFill(Color.web("#6050dc", 0.5), 
+					CornerRadii.EMPTY, Insets.EMPTY)));
 			}
 		});
 	}

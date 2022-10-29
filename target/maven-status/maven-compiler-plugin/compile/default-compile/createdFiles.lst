@@ -1,9 +1,11 @@
 PokerMain$2.class
 Dealer.class
 PokerMain$3.class
+PokerMain$6.class
 Card.class
 ThreeCardPokerGame.class
 NewLook.class
+PokerMain$7.class
 PokerMain$4.class
 PokerMain.class
 Player.class
@@ -11,3 +13,4 @@ Deck.class
 PokerMain$1.class
 Options.class
 PokerMain$5.class
+PokerMain$8.class
