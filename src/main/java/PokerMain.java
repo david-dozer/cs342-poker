@@ -156,14 +156,14 @@ public class PokerMain extends Application {
 		// Create grid pane to showcase poker table
 		GridPane pokerTable = new GridPane();
 		pokerTable.setPadding(new Insets(10,10,10,10));
-		Image card1 = new Image("/4/poker-playing-card-4-club-miroslav-nemecek.jpg");
-		Image card2 = new Image("/4/poker-playing-card-4-diamond-miroslav-nemecek.jpg");
-		Image card3 = new Image("/4/poker-playing-card-4-heart-miroslav-nemecek.jpg");
-		Image card4 = new Image("/5/poker-playing-card-5-club-miroslav-nemecek.jpg");
-		Image card5 = new Image("/5/poker-playing-card-5-diamond-miroslav-nemecek.jpg");
-		Image card6 = new Image("/5/poker-playing-card-5-heart-miroslav-nemecek.jpg");
-		Image card7 = new Image("/6/poker-playing-card-6-club-miroslav-nemecek.jpg");
-		Image card8 = new Image("/6/poker-playing-card-6-diamond-miroslav-nemecek.jpg");
+		Image card1 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
+		Image card2 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
+		Image card3 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
+		Image card4 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
+		Image card5 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
+		Image card6 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
+		Image card7 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
+		Image card8 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
 		Image card9 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
 		ImageView dealerCard1 = new ImageView(card1);
 		ImageView dealerCard2 = new ImageView(card2);
