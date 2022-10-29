@@ -17,6 +17,7 @@ import javafx.application.Platform;
 import javafx.scene.text.*;
 
 
+
 public class PokerMain extends Application {
 
 	public static void main(String[] args) {
@@ -29,6 +30,25 @@ public class PokerMain extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		
+		/***********************************************************************
+		*
+		*
+		* Code below sets up card back. i.e. when cards are hidden
+		*
+		*
+		************************************************************************/
+		
+		String cardBack = "/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg";
+		Image back = new Image(cardBack);
+		
+		/***********************************************************************
+		*
+		*
+		* Code below sets up GUI
+		*
+		*
+		************************************************************************/
+		
 		// Create top bar for menu button and status message
 		HBox topBar = new HBox();
 		topBar.setPadding(new Insets(15, 12, 15, 12));
@@ -40,7 +60,6 @@ public class PokerMain extends Application {
 		statusMsgGroup.setAlignment(Pos.CENTER);
 		Label statusLbl = new Label("Status:");
 		TextField status = new TextField();
-		//status.setMinWidth(580);
 		status.setAlignment(Pos.CENTER);
 		status.setEditable(false);
 		status.setMinHeight(35);
@@ -51,12 +70,10 @@ public class PokerMain extends Application {
 
 
 		// Create player controls side pane
-		int textFieldWidth = 50;
-		
-		
 		VBox sidePane = new VBox();
 		sidePane.setPadding(new Insets(15, 12, 15, 12));
 		sidePane.setSpacing(10);
+		int textFieldWidth = 50;
 		// Player 1 Controls box
 		VBox player1Controls = new VBox();
 		player1Controls.setAlignment(Pos.CENTER);
@@ -90,8 +107,7 @@ public class PokerMain extends Application {
 		TitledPane player1ControlBox = new TitledPane();
 		player1ControlBox.setText("Player 1");
 		player1ControlBox.setContent(player1Controls);
-
-
+		//Player 2 Controls Box
 		VBox player2Controls = new VBox();
 		player2Controls.setAlignment(Pos.CENTER);
 		TextField player2Winnings = new TextField();
@@ -124,14 +140,14 @@ public class PokerMain extends Application {
 		TitledPane player2ControlBox = new TitledPane();
 		player2ControlBox.setText("Player 2");
 		player2ControlBox.setContent(player2Controls);
-
+		// Deal Button
 		VBox dealControls = new VBox();
 		Button dealBtn = new Button("Deal");
 		dealBtn.setMinHeight(40);
 		dealBtn.setMinWidth(70);
 		dealControls.setAlignment(Pos.CENTER);
 		dealControls.getChildren().addAll(dealBtn);
-
+		// Add all player controls to sidepane
 		sidePane.getChildren().addAll(player1ControlBox, player2ControlBox, dealControls);
 
 
@@ -194,7 +210,6 @@ public class PokerMain extends Application {
 		
 		
 		
-		
 		// Create bordepane for all poker table gui nodes
 		BorderPane gameGUI = new BorderPane();
 		gameGUI.setCenter(pokerTable);
@@ -229,6 +244,7 @@ public class PokerMain extends Application {
 		menuGUI.setTop(topBar2);
 		
 		
+		
 		// New Look page
 		VBox newLook = new VBox();
 		newLook.setPadding(new Insets(15, 12, 15, 12));
@@ -242,6 +258,7 @@ public class PokerMain extends Application {
 		Button setNewImage = new Button("Set card backside!");
 		imagePath.setMaxWidth(400);
 		setImageControls.getChildren().addAll(imagePathLbl, imagePath, setNewImage);
+		// Status message font controls
 		VBox setFontControls = new VBox();
 		setFontControls.setAlignment(Pos.CENTER);
 		setFontControls.setSpacing(5);
@@ -259,7 +276,7 @@ public class PokerMain extends Application {
 		fontbutton3.setToggleGroup(fontGroup);
 		setFontButtonControls.getChildren().addAll(fontbutton1, fontbutton2, fontbutton3);
 		setFontControls.getChildren().addAll(setFontLbl, setFontButtonControls);
-		
+		// Poker table color controls
 		VBox setPokerTableColorControls = new VBox();
 		setPokerTableColorControls.setAlignment(Pos.CENTER);
 		setPokerTableColorControls.setSpacing(5);
@@ -277,7 +294,7 @@ public class PokerMain extends Application {
 		colorbutton3.setToggleGroup(colorGroup);
 		setPokerTableColorButtonControls.getChildren().addAll(colorbutton1, colorbutton2, colorbutton3);
 		setPokerTableColorControls.getChildren().addAll(setPokerTableColorLbl, setPokerTableColorButtonControls);
-		
+		// Add all new look controls to page and include menu button to get back to game
 		newLook.getChildren().addAll(setImageControls, setFontControls, setPokerTableColorControls);
 		HBox topBar3 = new HBox();
 		topBar3.setPadding(new Insets(15, 12, 15, 12));
@@ -292,9 +309,9 @@ public class PokerMain extends Application {
 		
 		
 		
+		// Add GUI objects to window and display
 		int windowWidth = 1070;
 		int windowHeight = 650;
-		// Add GUI objects to window and display
 		Scene gameScene = new Scene(gameGUI, windowWidth, windowHeight);
 		Scene optionsScene = new Scene(menuGUI, windowWidth, windowHeight);
 		Scene newLookScene = new Scene(newLookGUI, windowWidth, windowHeight);
@@ -303,7 +320,13 @@ public class PokerMain extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 		
-		
+		/***********************************************************************
+		*
+		*
+		* Code below sets up GUI event handlers
+		*
+		*
+		************************************************************************/
 		
 		//Set event handlers for objects
 		menuButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -380,10 +403,8 @@ public class PokerMain extends Application {
 		
 		setNewImage.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				String imageLocationText = imagePath.getText();
-				System.out.println(imageLocationText);
-				Image card10 = new Image(imageLocationText);
-				player2Card3.setImage(card10);
+				//String imageLocationText = imagePath.getText();
+				//cardBack = imageLocationText;
 			}
 		});
 	}
