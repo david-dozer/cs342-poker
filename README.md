@@ -4,8 +4,7 @@
 
 ```mermaid
   graph TD;
-      A[Are we ready for the project]-->B[Yes];
-      A-->C[No];
-      B-->D[We're screwed!];
-      C-->D[We're screwed!];
+      A[load gui ]-->B[get default vals <br> from P1 and P2 <br> fill in vals on GUI];
+      B-->C[Wait for P1 and P2 <br> to enter Ante and <br> Pair Plus wagers];
+      C-->D[Wait for Deal button press];
 ```
