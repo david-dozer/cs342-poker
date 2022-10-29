@@ -2,42 +2,51 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ThreeCardLogic {
+	
+	public static boolean sameSuit(ArrayList<Card> hand) {
+		if (hand.get(0).getSuit() == hand.get(1).getSuit() &&
+				(hand.get(1).getSuit() == hand.get(2).getSuit()) &&
+				(hand.get(2).getSuit() == hand.get(0).getSuit())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean sameVal(int num1, int num2) {
+		if (num1 == num2) {return true;} return false;
+	}
+	
+	public static boolean inSequence(ArrayList<Card> hand) {
+		if (hand.get(0).getValue() + 1 == hand.get(1).getValue()
+				&& hand.get(1).getValue() + 1 == hand.get(2).getValue()) {
+			return true;
+		}
+		return false;
+	}
+	
 	public static int evalHand(ArrayList<Card> hand) {
 		/* hand = new ArrayList<Card>(3); */
 //		Dealer d = new Dealer ();
 //		hand = d.dealHand();
-		int eval; // 0 is high card, 1 is SF, 2 is 3 O Kind, 3 is straight,
+		int eval = 0; // 0 is high card, 1 is SF, 2 is 3 O Kind, 3 is straight,
 				  // 4 is flush, 5 is pair
-		if (hand.get(0).getValue() == hand.get(1).getValue() || // pair case
-				hand.get(1).getValue() == hand.get(2).getValue() ||
-				hand.get(2).getValue() == hand.get(0).getValue()) {
+		if (sameVal(hand.get(0).value, hand.get(1).value) || // pair case
+				sameVal(hand.get(2).value, hand.get(1).value)  ||
+				sameVal(hand.get(2).value, hand.get(0).value)) {
 			eval = 5;
-			// program flush and straight and straight flush all in one case?
-		} else if (hand.get(0).getSuit() == hand.get(1).getSuit() && // flush case
-				hand.get(1).getSuit() == hand.get(2).getSuit() &&
-				hand.get(2).getSuit() == hand.get(0).getSuit()) {
-			// evaluate for straight flush, the best hand in the game, inside
-			if ((hand.get(1).getValue() - hand.get(0).getValue()) == 1 &&
-				(hand.get(2).getValue() - hand.get(1).getValue()) == 1) {
-					eval = 1;
-				} else {
-					eval = 4;
-			}
-		} else if (hand.get(0).getValue() == hand.get(1).getValue() && // three of a kind case
-				hand.get(1).getValue() == hand.get(2).getValue() &&
-				hand.get(2).getValue() == hand.get(0).getValue()) {
+		} else if (sameSuit(hand)) {
+			eval = 4;
+		} else if (sameVal(hand.get(0).value, hand.get(1).value) && // 3 of kind
+				sameVal(hand.get(2).value, hand.get(1).value)  &&
+				sameVal(hand.get(2).value, hand.get(0).value)) {
 			eval = 2;
-		} else if ((hand.get(1).getValue() - hand.get(0).getValue()) == 1 &&
-				(hand.get(2).getValue() - hand.get(1).getValue()) == 1) {
+		} else if (inSequence(hand) && !sameSuit(hand)) {
 			// evaluate for straight flush, the best hand in the game, inside
-			if (hand.get(0).getSuit() == hand.get(1).getSuit() && // flush case
-					hand.get(1).getSuit() == hand.get(2).getSuit() &&
-					hand.get(2).getSuit() == hand.get(0).getSuit()) {
-					eval = 1;
-				} else {
-					eval = 3;
-			}
-		} else { eval = 0; }  // no combo at all, just a high card
+				eval = 3;
+		} else if (inSequence(hand) && sameSuit(hand)) { eval = 1;}
+		else if (!inSequence(hand) && !sameSuit(hand)) {
+			System.out.printf("not anything");
+			eval = 0;}
 		return eval;
 		// 0 is high card, 1 is SF, 2 is 3 O Kind, 3 is straight,
 	    // 4 is flush, 5 is pair
@@ -46,20 +55,20 @@ public class ThreeCardLogic {
 	public static int evalPPWinnings(ArrayList<Card> hand, int bet) {
 //		hand = new ArrayList<Card>(3);
 //		Dealer d = new Dealer ();
-		int winnings = 0;
+		int factor = 0;
 		int typeHand = evalHand(hand);
 		if (typeHand == 5) {  // 
-			winnings = bet * 2;  // 1 to 1
+			factor = 1;  // 1 to 1
 		} else if (typeHand == 4) {
-			winnings = bet * 4;  // 3 to 1
+			factor = 3;  // 3 to 1
 		} else if (typeHand == 3) {
-			winnings = bet * 7;  // 6 to 1
+			factor = 6;  // 6 to 1
 		} else if (typeHand == 2) {
-			winnings = bet * 31;  // 30 to 1
+			factor = 30;  // 30 to 1
 		} else if (typeHand == 1) {
-			winnings = bet * 41;  // 40 to 1
+			factor = 40;  // 40 to 1
 		}
-		return winnings;
+		return (factor * bet) + bet;
 	}
 	
 	public static int maxCardVal(ArrayList<Card> hand) {
