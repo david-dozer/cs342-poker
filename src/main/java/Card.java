@@ -6,10 +6,7 @@ public class Card {
 	public Card(char suit, int value) {
 		this.suit = suit;
 		this.value = value;
-<<<<<<< HEAD
-=======
-		this.url = " ";
->>>>>>> 9e9c89f8fbbd8419f3c7c8e8ec94c357c07a7700
+		this.url = "";
 	}
 	
 	public void setURL(String url) {
