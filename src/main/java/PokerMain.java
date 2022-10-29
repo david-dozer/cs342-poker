@@ -160,21 +160,39 @@ public class PokerMain extends Application {
 		ImageView player2Card1 = new ImageView(card7);
 		ImageView player2Card2 = new ImageView(card8);
 		ImageView player2Card3 = new ImageView(card9);
+		HBox dealerLblBox = new HBox();
+		Label dealerLbl = new Label("Dealer");
+		dealerLbl.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 16));
+		dealerLblBox.getChildren().addAll(dealerLbl);
+		dealerLblBox.setAlignment(Pos.CENTER);
+		HBox player1LblBox = new HBox();
+		Label player1Lbl = new Label("Player 1");
+		player1Lbl.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 16));
+		player1LblBox.getChildren().addAll(player1Lbl);
+		player1LblBox.setAlignment(Pos.CENTER);
+		HBox player2LblBox = new HBox();
+		Label player2Lbl = new Label("Player 2");
+		player2Lbl.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 16));
+		player2LblBox.getChildren().addAll(player2Lbl);
+		player2LblBox.setAlignment(Pos.CENTER);
 		pokerTable.setBackground(new Background(
 				new BackgroundFill(Color.web("#008080", 0.5), 
 				CornerRadii.EMPTY, Insets.EMPTY)));
-		pokerTable.setGridLinesVisible(true);
+		pokerTable.setGridLinesVisible(false);
 		pokerTable.setHgap(10);
 		pokerTable.setVgap(10);
-		pokerTable.add(dealerCard1,2,0);
-		pokerTable.add(dealerCard2,3,0);
-		pokerTable.add(dealerCard3,4,0);
-		pokerTable.add(player1Card1,0,5);
-		pokerTable.add(player1Card2,1,5);
-		pokerTable.add(player1Card3,2,5);
-		pokerTable.add(player2Card1,4,5);
-		pokerTable.add(player2Card2,5,5);
-		pokerTable.add(player2Card3,6,5);
+		pokerTable.add(dealerLblBox,3,0);
+		pokerTable.add(dealerCard1,2,1);
+		pokerTable.add(dealerCard2,3,1);
+		pokerTable.add(dealerCard3,4,1);
+		pokerTable.add(player1Card1,0,6);
+		pokerTable.add(player1Card2,1,6);
+		pokerTable.add(player1Card3,2,6);
+		pokerTable.add(player2Card1,4,6);
+		pokerTable.add(player2Card2,5,6);
+		pokerTable.add(player2Card3,6,6);
+		pokerTable.add(player1LblBox,1,7);
+		pokerTable.add(player2LblBox,5,7);
 		
 		
 		
@@ -282,7 +300,7 @@ public class PokerMain extends Application {
 		Scene gameScene = new Scene(gameGUI, windowWidth, windowHeight);
 		Scene optionsScene = new Scene(menuGUI, windowWidth, windowHeight);
 		Scene newLookScene = new Scene(newLookGUI, windowWidth, windowHeight);
-		primaryStage.setTitle("3 Card Poker");
+		primaryStage.setTitle("3 Card Poker Game");
 		primaryStage.setScene(gameScene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
