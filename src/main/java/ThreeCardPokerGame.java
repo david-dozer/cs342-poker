@@ -21,5 +21,11 @@ public class ThreeCardPokerGame{
 		theDealer.dealersHand = theDealer.dealHand();
 	}
 	
+	public void playerOneFolds(){
+		playerOne.totalWinnings = playerOne.totalWinnings - playerOne.anteBet - playerOne.pairPlusBet;
+	}
 	
+	public void playerTwoFolds(){
+		playerTwo.totalWinnings = playerTwo.totalWinnings - playerTwo.anteBet - playerTwo.pairPlusBet;
+	}
 }

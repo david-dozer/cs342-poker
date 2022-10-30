@@ -456,6 +456,16 @@ public class PokerMain extends Application {
 				
 				// TODO dealer performs payouts
 				
+				//If they fold, they lose their ante wager and pair plus wager(if they made one).
+				if(game.playerOne.playCurrentRound == false){
+					playerOneFolds();
+				}
+				if(game.playerTwo.playCurrentRound == false){
+					playerTwoFolds();
+				}
+				
+				
+				
 			}
 		});
 		
