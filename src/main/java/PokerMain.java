@@ -358,17 +358,21 @@ public class PokerMain extends Application {
 					game.playerTwo.pairPlusBet = Integer.parseInt(player2PairPlus.getText());
 					
 					if(game.playerOne.anteBet < 5 || game.playerOne.anteBet > 25){
-						throw new Exception("Player 1 ante bet exceeds limitations!");
+						throw new Exception("Player 1 ante bet exceeds limitations!\nBet must be >= 5 or <= 25!");
 					}
 					if(game.playerTwo.anteBet < 5 || game.playerTwo.anteBet > 25){
-						throw new Exception("Player 2 ante bet exceeds limitations!");
+						throw new Exception("Player 2 ante bet exceeds limitations!\nBet must be >= 5 or <= 25!");
 					}
 					
 					if(game.playerOne.pairPlusBet < 5 || game.playerOne.pairPlusBet > 25){
-						throw new Exception("Player 1 pair plus bet exceeds limitations!");
+						if(game.playerOne.pairPlusBet != 0){
+							throw new Exception("Player 1 pair plus bet exceeds limitations!\nBet must be >= 5 or <= 25!\nBet must be 0 if no Pair Plus");
+						}
 					}
 					if(game.playerTwo.pairPlusBet < 5 || game.playerTwo.pairPlusBet > 25){
-						throw new Exception("Player 2 pair plus exceeds limitations!");
+						if(game.playerTwo.pairPlusBet != 0){
+							throw new Exception("Player 1 pair plus bet exceeds limitations!\nBet must be >= 5 or <= 25!\nBet must be 0 if no Pair Plus");
+						}
 					}
 					
 					player1PlayBtn.setDisable(false);
@@ -381,20 +385,20 @@ public class PokerMain extends Application {
 					player2Ante.setDisable(true);
 					player2PairPlus.setDisable(true);
 					
-					
-					
 					status.setText("P1, please play or fold!");
 					dealBtn.setDisable(true);
 					
-					dealerCard1.setImage(new Image(cardBack.getPath()));
-					dealerCard2.setImage(new Image(cardBack.getPath()));
-					dealerCard3.setImage(new Image(cardBack.getPath()));
-					player1Card1.setImage(new Image(cardBack.getPath()));
-					player1Card2.setImage(new Image(cardBack.getPath()));
-					player1Card3.setImage(new Image(cardBack.getPath()));
-					player2Card1.setImage(new Image(cardBack.getPath()));
-					player2Card2.setImage(new Image(cardBack.getPath()));
-					player2Card3.setImage(new Image(cardBack.getPath()));
+					// TODO game logic goes here
+					
+					game.playerOneGetCards();
+					game.playerTwoGetCards();
+				
+					player1Card1.setImage(new Image(game.playerOne.hand.get(0).url));
+					player1Card2.setImage(new Image(game.playerOne.hand.get(1).url));
+					player1Card3.setImage(new Image(game.playerOne.hand.get(2).url));
+					player2Card1.setImage(new Image(game.playerTwo.hand.get(0).url));
+					player2Card2.setImage(new Image(game.playerTwo.hand.get(1).url));
+					player2Card3.setImage(new Image(game.playerTwo.hand.get(2).url));
 				}
 				catch(Exception f){
 					String errMsg;
@@ -402,7 +406,7 @@ public class PokerMain extends Application {
 						errMsg = "P1 or P2: all bets must be numeric!";
 					}
 					else{
-						errMsg = f.getMessage().concat(" Bet must be >= 5 or <= 25!");
+						errMsg = f.getMessage();
 					}
 					Alert alert = new Alert(AlertType.NONE, errMsg, ButtonType.OK);
 					alert.showAndWait();
@@ -419,13 +423,6 @@ public class PokerMain extends Application {
 				player2FoldBtn.setDisable(false);
 				
 				game.playerOne.playCurrentRound = true;
-				
-				// dealer hands out random cards to player
-				game.playerOneGetCards();
-				
-				player1Card1.setImage(new Image(game.playerOne.hand.get(0).url));
-				player1Card2.setImage(new Image(game.playerOne.hand.get(1).url));
-				player1Card3.setImage(new Image(game.playerOne.hand.get(2).url));
 			}
 		});
 		
@@ -438,13 +435,6 @@ public class PokerMain extends Application {
 				player2FoldBtn.setDisable(false);
 				
 				game.playerOne.playCurrentRound = false;
-				
-				// dealer hands out random cards to player
-				game.playerOneGetCards();
-				
-				player1Card1.setImage(new Image(game.playerOne.hand.get(0).url));
-				player1Card2.setImage(new Image(game.playerOne.hand.get(1).url));
-				player1Card3.setImage(new Image(game.playerOne.hand.get(2).url));
 			}
 		});
 		
@@ -457,13 +447,6 @@ public class PokerMain extends Application {
 				player2FoldBtn.setDisable(true);
 				
 				game.playerTwo.playCurrentRound = true;
-				
-				// dealer hands out random cards to player
-				game.playerTwoGetCards();
-				
-				player2Card1.setImage(new Image(game.playerTwo.hand.get(0).url));
-				player2Card2.setImage(new Image(game.playerTwo.hand.get(1).url));
-				player2Card3.setImage(new Image(game.playerTwo.hand.get(2).url));
 				
 				game.dealerGetCards();
 				
@@ -485,13 +468,6 @@ public class PokerMain extends Application {
 				player2FoldBtn.setDisable(true);
 				
 				game.playerTwo.playCurrentRound = false;
-				
-				// dealer hands out random cards to player
-				game.playerTwoGetCards();
-				
-				player2Card1.setImage(new Image(game.playerTwo.hand.get(0).url));
-				player2Card2.setImage(new Image(game.playerTwo.hand.get(1).url));
-				player2Card3.setImage(new Image(game.playerTwo.hand.get(2).url));
 				
 				game.dealerGetCards();
 				

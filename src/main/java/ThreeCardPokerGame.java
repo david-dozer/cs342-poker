@@ -20,4 +20,6 @@ public class ThreeCardPokerGame{
 	public void dealerGetCards(){
 		theDealer.dealersHand = theDealer.dealHand();
 	}
+	
+	
 }
