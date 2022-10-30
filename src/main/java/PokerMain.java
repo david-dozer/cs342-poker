@@ -371,6 +371,16 @@ public class PokerMain extends Application {
 					
 					status.setText("P1, please play or fold!");
 					dealBtn.setDisable(true);
+					
+					dealerCard1.setImage(new Image(cardBack.getPath()));
+					dealerCard2.setImage(new Image(cardBack.getPath()));
+					dealerCard3.setImage(new Image(cardBack.getPath()));
+					player1Card1.setImage(new Image(cardBack.getPath()));
+					player1Card2.setImage(new Image(cardBack.getPath()));
+					player1Card3.setImage(new Image(cardBack.getPath()));
+					player2Card1.setImage(new Image(cardBack.getPath()));
+					player2Card2.setImage(new Image(cardBack.getPath()));
+					player2Card3.setImage(new Image(cardBack.getPath()));
 				}
 				catch(Exception f){
 					Alert alert = new Alert(AlertType.NONE,
@@ -440,6 +450,8 @@ public class PokerMain extends Application {
 				dealerCard1.setImage(new Image(game.theDealer.dealersHand.get(0).url));
 				dealerCard2.setImage(new Image(game.theDealer.dealersHand.get(1).url));
 				dealerCard3.setImage(new Image(game.theDealer.dealersHand.get(2).url));
+				
+				// TODO dealer performs payouts
 			}
 		});
 		
@@ -465,6 +477,8 @@ public class PokerMain extends Application {
 				dealerCard1.setImage(new Image(game.theDealer.dealersHand.get(0).url));
 				dealerCard2.setImage(new Image(game.theDealer.dealersHand.get(1).url));
 				dealerCard3.setImage(new Image(game.theDealer.dealersHand.get(2).url));
+				
+				// TODO dealer performs payouts
 			}
 		});
 		
