@@ -17,6 +17,14 @@ public class Card {
 		return this.url;
 	}
 	
+	public int getValue(){
+		return this.value;
+	}
+	
+	public char getSuit(){
+		return this.suit;
+	}
+	
 	public void setImage(){
 		switch(value){
 			case 2:
