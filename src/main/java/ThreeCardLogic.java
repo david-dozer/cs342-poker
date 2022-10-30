@@ -80,19 +80,14 @@ public class ThreeCardLogic {
 	
 	private static int compHighCards(ArrayList<Card> player, ArrayList<Card> dealer, int topCardIndex) {
         // get highest card at index
-        if (topCardIndex > 3) {
-            return 0;        // Out of bounds, push
-        }
-        if (topCardIndex <= 0) {
-            return -123;     // ERROR, return error value
-        }
+		// top card index starts at 1, since top ind of size 3 is n-1, which is 2
+		// top card ind. will increment if both highs are same at the index
+        if (topCardIndex > 3) {return 0;}       // examined all cards, 
         
         ArrayList<Integer>playerVals = sortCardValues(player);
         ArrayList<Integer>dealerVals = sortCardValues(dealer);
         
-        if (dealerVals.get(3-topCardIndex) < 12) {  // dealer no have queen or higher
-        	return 0;
-        }
+		if (dealerVals.get(3-topCardIndex) < 12) {return 0;}  // dealer not have queen high
         
         // Highest card is last in list, keep going until vals not equal
         int dealerHigh = dealerVals.get(3-topCardIndex);
@@ -102,6 +97,7 @@ public class ThreeCardLogic {
             return compHighCards(dealer, player, topCardIndex++);  // Eval based on next highest card
         } 
         
+        // 1, dealer has higher card, 2, player has higher card
         if (dealerHigh > playerHigh) {return 1;} else {return 2;}
     }
 	
@@ -109,21 +105,31 @@ public class ThreeCardLogic {
 	public static int compareHands(ArrayList<Card> dealer, ArrayList<Card> player) {
 		int playerEval = evalHand(player);
 		int dealerEval = evalHand(dealer);
+		ArrayList<Integer>dealerVals = sortCardValues(dealer);
 		
 		if (dealerEval < playerEval) {
 			if (dealerEval != 0) {  // lower the eval, better the hand
 				System.out.printf("went to here, dealer wins\n");
-				return 1;} else {return 2;}}  // 0 is basic hand, auto lose
+				return 1;
+			} else {  // dealer has high card
+					if (dealerVals.get(2) < 12) {
+						return 0;
+					} else {return 2;}  // player has a unique hand, therefore wins
+				}
+		}
 		else if (playerEval < dealerEval) {
 			if (playerEval != 0) {  // lower the eval, better the hand
 				System.out.printf("went to here, player wins\n");
-				return 2;} else {return 1;}}  // 0 is basic hand, auto lose
-		
+				return 2;
+			} else {  // dealer has unique hand, not high card, therefore wins
+					return 1; // dealer wins bc unique hand
+				}
+		}
 		else {  // if equal
 			System.out.printf("went to here, same typa hands\n");
 			if (dealerEval == 5 || dealerEval == 2 || dealerEval == 3
-					|| dealerEval == 1) {  // pair, 3 of kind, straight, and SF.
-				// can sum up all values to determine more powerful hand
+					|| dealerEval == 1) {  // pairs, 3 of kind, straight, SF
+				// a way to find which of these types of hands is more powerful, sum up card values
 				int sumPlayer = 0, sumDealer = 0;
 				for (Card p : player) {
 					sumPlayer = sumPlayer + p.getValue();
@@ -131,12 +137,11 @@ public class ThreeCardLogic {
 				for (Card d : dealer) {
 					sumDealer = sumDealer + d.getValue();
 				}
-				// sum comparing handling
 				if (sumPlayer > sumDealer) {return 2;}
 				else if (sumDealer > sumPlayer) {return 1;}
 				else if (sumPlayer == sumDealer) { return 0;}
-			} else if (dealerEval == 0 || dealerEval == 4) {  // with normal and flush, find high card
-				return compHighCards(player, dealer, 1);
+			} else if (dealerEval == 0 || dealerEval == 4) {  // compare high cards
+				return compHighCards(player, dealer, 1);  // start high card comparison
 			}
 		}
 		return 0;
