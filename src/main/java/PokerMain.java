@@ -357,6 +357,20 @@ public class PokerMain extends Application {
 					game.playerOne.pairPlusBet = Integer.parseInt(player1PairPlus.getText());
 					game.playerTwo.pairPlusBet = Integer.parseInt(player2PairPlus.getText());
 					
+					if(game.playerOne.anteBet < 5 || game.playerOne.anteBet > 25){
+						throw new Exception("Player 1 ante bet exceeds limitations!");
+					}
+					if(game.playerTwo.anteBet < 5 || game.playerTwo.anteBet > 25){
+						throw new Exception("Player 2 ante bet exceeds limitations!");
+					}
+					
+					if(game.playerOne.pairPlusBet < 5 || game.playerOne.pairPlusBet > 25){
+						throw new Exception("Player 1 pair plus bet exceeds limitations!");
+					}
+					if(game.playerTwo.pairPlusBet < 5 || game.playerTwo.pairPlusBet > 25){
+						throw new Exception("Player 2 pair plus exceeds limitations!");
+					}
+					
 					player1PlayBtn.setDisable(false);
 					player1FoldBtn.setDisable(false);
 					player2PlayBtn.setDisable(true);
@@ -383,8 +397,14 @@ public class PokerMain extends Application {
 					player2Card3.setImage(new Image(cardBack.getPath()));
 				}
 				catch(Exception f){
-					Alert alert = new Alert(AlertType.NONE,
-						"P1 or P2: Enter numbers and not something else!", ButtonType.OK);
+					String errMsg;
+					if(f.getMessage().substring(0,3).equals("For")){
+						errMsg = "P1 or P2: all bets must be numeric!";
+					}
+					else{
+						errMsg = f.getMessage();
+					}
+					Alert alert = new Alert(AlertType.NONE, errMsg, ButtonType.OK);
 					alert.showAndWait();
 				}
 			}
@@ -452,6 +472,7 @@ public class PokerMain extends Application {
 				dealerCard3.setImage(new Image(game.theDealer.dealersHand.get(2).url));
 				
 				// TODO dealer performs payouts
+				
 			}
 		});
 		
