@@ -121,6 +121,8 @@ public class ThreeCardLogic {
 					comp = compHighCards(player, dealer);
 				}
 			}
+			else if(playerEval == 0 && dealerEval != 0) { comp = 1;}
+			else if(playerEval != 0 && dealerEval == 0) { comp = 2;} 
 		} else if (playerEval == 0 && dealerEval == 0) {  // high card scenario
 			comp = compHighCards(player, dealer);
 		}
