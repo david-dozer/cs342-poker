@@ -350,23 +350,32 @@ public class PokerMain extends Application {
 		
 		dealBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				player1PlayBtn.setDisable(false);
-				player1FoldBtn.setDisable(false);
-				player2PlayBtn.setDisable(true);
-				player2FoldBtn.setDisable(true);
-				
-				player1Ante.setDisable(true);
-				player1PairPlus.setDisable(true);
-				player2Ante.setDisable(true);
-				player2PairPlus.setDisable(true);
-				
-				game.playerOne.anteBet = Integer.parseInt(player1Ante.getText());
-				game.playerTwo.anteBet = Integer.parseInt(player2Ante.getText());
-				game.playerOne.pairPlusBet = Integer.parseInt(player1PairPlus.getText());
-				game.playerTwo.pairPlusBet = Integer.parseInt(player2PairPlus.getText());
-				
-				status.setText("P1, please play or fold!");
-				dealBtn.setDisable(true);
+				try{
+					game.playerOne.anteBet = Integer.parseInt(player1Ante.getText());
+					game.playerTwo.anteBet = Integer.parseInt(player2Ante.getText());
+					game.playerOne.pairPlusBet = Integer.parseInt(player1PairPlus.getText());
+					game.playerTwo.pairPlusBet = Integer.parseInt(player2PairPlus.getText());
+					
+					player1PlayBtn.setDisable(false);
+					player1FoldBtn.setDisable(false);
+					player2PlayBtn.setDisable(true);
+					player2FoldBtn.setDisable(true);
+					
+					player1Ante.setDisable(true);
+					player1PairPlus.setDisable(true);
+					player2Ante.setDisable(true);
+					player2PairPlus.setDisable(true);
+					
+					
+					
+					status.setText("P1, please play or fold!");
+					dealBtn.setDisable(true);
+				}
+				catch(Exception f){
+					Alert alert = new Alert(AlertType.NONE,
+						"P1 or P2: Enter numbers and not something else!", ButtonType.OK);
+					alert.showAndWait();
+				}
 			}
 		});
 		

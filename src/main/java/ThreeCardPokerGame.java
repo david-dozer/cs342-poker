@@ -8,4 +8,8 @@ public class ThreeCardPokerGame{
 		playerTwo = new Player();
 		theDealer = new Dealer();
 	}
+	
+	public void playerOneGetCards(){
+	
+	}
 }
