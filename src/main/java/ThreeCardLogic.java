@@ -64,6 +64,9 @@ public class ThreeCardLogic {
 	public static int evalPPWinnings(ArrayList<Card> hand, int bet) {
 		int factor = 0;
 		int typeHand = evalHand(hand);
+		if (typeHand == 0){
+			return 0;
+		}
 		if (typeHand == 5) {  // 
 			factor = 1;  // 1 to 1
 		} else if (typeHand == 4) {
