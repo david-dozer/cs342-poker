@@ -10,6 +10,12 @@ public class ThreeCardPokerGame{
 	}
 	
 	public void playerOneGetCards(){
-	
+		playerOne.hand = theDealer.dealHand();
 	}
+	
+	public void playerTwoGetCards(){
+		playerTwo.hand = theDealer.dealHand();
+	}
+	
+	
 }

@@ -390,6 +390,12 @@ public class PokerMain extends Application {
 				
 				game.playerOne.playCurrentRound = true;
 				
+				// dealer hands out random cards to player
+				game.playerOneGetCards();
+				
+				player1Card1.setImage(new Image(game.playerOne.hand.get(0).url));
+				player1Card2.setImage(new Image(game.playerOne.hand.get(1).url));
+				player1Card3.setImage(new Image(game.playerOne.hand.get(2).url));
 			}
 		});
 		
@@ -402,6 +408,13 @@ public class PokerMain extends Application {
 				player2FoldBtn.setDisable(false);
 				
 				game.playerOne.playCurrentRound = false;
+				
+				// dealer hands out random cards to player
+				game.playerOneGetCards();
+				
+				player1Card1.setImage(new Image(game.playerOne.hand.get(0).url));
+				player1Card2.setImage(new Image(game.playerOne.hand.get(1).url));
+				player1Card3.setImage(new Image(game.playerOne.hand.get(2).url));
 			}
 		});
 		
@@ -414,6 +427,14 @@ public class PokerMain extends Application {
 				player2FoldBtn.setDisable(true);
 				
 				game.playerTwo.playCurrentRound = true;
+				
+				// dealer hands out random cards to player
+				game.playerTwoGetCards();
+				
+				player2Card1.setImage(new Image(game.playerTwo.hand.get(0).url));
+				player2Card2.setImage(new Image(game.playerTwo.hand.get(1).url));
+				player2Card3.setImage(new Image(game.playerTwo.hand.get(2).url));
+				
 			}
 		});
 		
@@ -426,6 +447,13 @@ public class PokerMain extends Application {
 				player2FoldBtn.setDisable(true);
 				
 				game.playerTwo.playCurrentRound = false;
+				
+				// dealer hands out random cards to player
+				game.playerTwoGetCards();
+				
+				player2Card1.setImage(new Image(game.playerTwo.hand.get(0).url));
+				player2Card2.setImage(new Image(game.playerTwo.hand.get(1).url));
+				player2Card3.setImage(new Image(game.playerTwo.hand.get(2).url));
 			}
 		});
 		
