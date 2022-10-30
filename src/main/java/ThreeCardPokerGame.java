@@ -17,5 +17,7 @@ public class ThreeCardPokerGame{
 		playerTwo.hand = theDealer.dealHand();
 	}
 	
-	
+	public void dealerGetCards(){
+		theDealer.dealersHand = theDealer.dealHand();
+	}
 }

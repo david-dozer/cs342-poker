@@ -435,6 +435,11 @@ public class PokerMain extends Application {
 				player2Card2.setImage(new Image(game.playerTwo.hand.get(1).url));
 				player2Card3.setImage(new Image(game.playerTwo.hand.get(2).url));
 				
+				game.dealerGetCards();
+				
+				dealerCard1.setImage(new Image(game.theDealer.dealersHand.get(0).url));
+				dealerCard2.setImage(new Image(game.theDealer.dealersHand.get(1).url));
+				dealerCard3.setImage(new Image(game.theDealer.dealersHand.get(2).url));
 			}
 		});
 		
@@ -454,6 +459,12 @@ public class PokerMain extends Application {
 				player2Card1.setImage(new Image(game.playerTwo.hand.get(0).url));
 				player2Card2.setImage(new Image(game.playerTwo.hand.get(1).url));
 				player2Card3.setImage(new Image(game.playerTwo.hand.get(2).url));
+				
+				game.dealerGetCards();
+				
+				dealerCard1.setImage(new Image(game.theDealer.dealersHand.get(0).url));
+				dealerCard2.setImage(new Image(game.theDealer.dealersHand.get(1).url));
+				dealerCard3.setImage(new Image(game.theDealer.dealersHand.get(2).url));
 			}
 		});
 		
