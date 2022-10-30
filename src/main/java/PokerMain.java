@@ -315,6 +315,29 @@ public class PokerMain extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 		
+		
+		/***********************************************************************
+		*
+		*
+		* Code below fills in values like text fields
+		*
+		*
+		************************************************************************/
+		
+		status.setText("Welcome! P1 and P2: Please enter your Ante and Pair Plus bets. Then, press Deal!");
+		
+		player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
+		player1Ante.setText(Integer.toString(game.playerOne.anteBet));
+		player1PairPlus.setText(Integer.toString(game.playerOne.anteBet));
+		player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
+		player2Ante.setText(Integer.toString(game.playerTwo.anteBet));
+		player2PairPlus.setText(Integer.toString(game.playerTwo.anteBet));
+		
+		player1PlayBtn.setDisable(true);
+		player1FoldBtn.setDisable(true);
+		player2PlayBtn.setDisable(true);
+		player2FoldBtn.setDisable(true);
+		
 		/***********************************************************************
 		*
 		*
@@ -324,6 +347,69 @@ public class PokerMain extends Application {
 		************************************************************************/
 		
 		//Set event handlers for objects
+		
+		dealBtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				player1PlayBtn.setDisable(false);
+				player1FoldBtn.setDisable(false);
+				player2PlayBtn.setDisable(true);
+				player2FoldBtn.setDisable(true);
+				
+				player1Ante.setDisable(true);
+				player1PairPlus.setDisable(true);
+				player2Ante.setDisable(true);
+				player2PairPlus.setDisable(true);
+				
+				game.playerOne.anteBet = Integer.parseInt(player1Ante.getText());
+				game.playerTwo.anteBet = Integer.parseInt(player2Ante.getText());
+				game.playerOne.pairPlusBet = Integer.parseInt(player1PairPlus.getText());
+				game.playerTwo.pairPlusBet = Integer.parseInt(player2PairPlus.getText());
+				
+				status.setText("P1, please play or fold!");
+				dealBtn.setDisable(true);
+			}
+		});
+		
+		player1PlayBtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				status.setText("P1 played. P2, please play or fold!");
+				player1PlayBtn.setDisable(true);
+				player1FoldBtn.setDisable(true);
+				player2PlayBtn.setDisable(false);
+				player2FoldBtn.setDisable(false);
+			}
+		});
+		
+		player1FoldBtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				status.setText("P1 folded. P2, please play or fold!");
+				player1PlayBtn.setDisable(true);
+				player1FoldBtn.setDisable(true);
+				player2PlayBtn.setDisable(false);
+				player2FoldBtn.setDisable(false);
+			}
+		});
+		
+		player2PlayBtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				status.setText("P2 played. Dealer will now show its cards!");
+				player1PlayBtn.setDisable(true);
+				player1FoldBtn.setDisable(true);
+				player2PlayBtn.setDisable(true);
+				player2FoldBtn.setDisable(true);
+			}
+		});
+		
+		player2FoldBtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				status.setText("P2 folded. Dealer will now show its cards!");
+				player1PlayBtn.setDisable(true);
+				player1FoldBtn.setDisable(true);
+				player2PlayBtn.setDisable(true);
+				player2FoldBtn.setDisable(true);
+			}
+		});
+		
 		menuButton.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				primaryStage.setScene(optionsScene);
