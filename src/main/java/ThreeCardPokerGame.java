@@ -4,6 +4,8 @@ public class ThreeCardPokerGame{
 	Dealer theDealer;
 	public ThreeCardPokerGame()
 	{
-		
+		playerOne = new Player();
+		playerTwo = new Player();
+		theDealer = new Dealer();
 	}
 }

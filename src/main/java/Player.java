@@ -15,4 +15,8 @@ public class Player {
 		this.pairPlusBet = 0;
 		this.totalWinnings = 1000;
 	}
+	
+	public int getTotalWinnings(){
+		return this.totalWinnings;
+	}
 }

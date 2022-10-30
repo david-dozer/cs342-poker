@@ -15,7 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.application.Platform;
 import javafx.scene.text.*;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class PokerMain extends Application {
@@ -34,12 +35,14 @@ public class PokerMain extends Application {
 		*
 		*
 		* Code below sets up card back. i.e. when cards are hidden
+		* /back/poker-playing-card-backside-blue-miroslav-nemecek.jpg
+		* /hallenbeck-120x180.jpg
 		*
 		*
 		************************************************************************/
 		
-		String cardBack = "/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg";
-		Image back = new Image(cardBack);
+		ThreeCardPokerGame game = new ThreeCardPokerGame();
+		CardBack cardBack = new CardBack("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
 		
 		/***********************************************************************
 		*
@@ -156,24 +159,16 @@ public class PokerMain extends Application {
 		// Create grid pane to showcase poker table
 		GridPane pokerTable = new GridPane();
 		pokerTable.setPadding(new Insets(10,10,10,10));
-		Image card1 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
-		Image card2 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
-		Image card3 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
-		Image card4 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
-		Image card5 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
-		Image card6 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
-		Image card7 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
-		Image card8 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
-		Image card9 = new Image("/back/poker-playing-card-backside-blue-miroslav-nemecek.jpg");
+		Image card1 = new Image(cardBack.getPath());
 		ImageView dealerCard1 = new ImageView(card1);
-		ImageView dealerCard2 = new ImageView(card2);
-		ImageView dealerCard3 = new ImageView(card3);
-		ImageView player1Card1 = new ImageView(card4);
-		ImageView player1Card2 = new ImageView(card5);
-		ImageView player1Card3 = new ImageView(card6);
-		ImageView player2Card1 = new ImageView(card7);
-		ImageView player2Card2 = new ImageView(card8);
-		ImageView player2Card3 = new ImageView(card9);
+		ImageView dealerCard2 = new ImageView(card1);
+		ImageView dealerCard3 = new ImageView(card1);
+		ImageView player1Card1 = new ImageView(card1);
+		ImageView player1Card2 = new ImageView(card1);
+		ImageView player1Card3 = new ImageView(card1);
+		ImageView player2Card1 = new ImageView(card1);
+		ImageView player2Card2 = new ImageView(card1);
+		ImageView player2Card3 = new ImageView(card1);
 		HBox dealerLblBox = new HBox();
 		Label dealerLbl = new Label("Dealer");
 		dealerLbl.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 16));
@@ -403,8 +398,23 @@ public class PokerMain extends Application {
 		
 		setNewImage.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				//String imageLocationText = imagePath.getText();
-				//cardBack = imageLocationText;
+				try{
+					cardBack.setPath(imagePath.getText());
+					Image newBackside = new Image(cardBack.getPath());
+					dealerCard1.setImage(newBackside);
+					dealerCard2.setImage(newBackside);
+					dealerCard3.setImage(newBackside);
+					player1Card1.setImage(newBackside);
+					player1Card2.setImage(newBackside);
+					player1Card3.setImage(newBackside);
+					player2Card1.setImage(newBackside);
+					player2Card2.setImage(newBackside);
+					player2Card3.setImage(newBackside);
+				}catch(Exception f){
+					Alert alert = new Alert(AlertType.NONE,
+						"Image Path Not Valid!", ButtonType.OK);
+					alert.showAndWait();
+				}
 			}
 		});
 	}
