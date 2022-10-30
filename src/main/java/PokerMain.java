@@ -402,7 +402,7 @@ public class PokerMain extends Application {
 						errMsg = "P1 or P2: all bets must be numeric!";
 					}
 					else{
-						errMsg = f.getMessage();
+						errMsg = f.getMessage().concat(" Bet must be >= 5 or <= 25!");
 					}
 					Alert alert = new Alert(AlertType.NONE, errMsg, ButtonType.OK);
 					alert.showAndWait();
