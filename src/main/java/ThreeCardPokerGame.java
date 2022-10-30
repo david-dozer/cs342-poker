@@ -20,29 +20,27 @@ public class ThreeCardPokerGame{
 	public void dealerGetCards(){
 		theDealer.dealersHand = theDealer.dealHand();
 	}
-	
-	public void playerOneFolds(){
-		playerOne.totalWinnings = playerOne.totalWinnings - playerOne.anteBet - playerOne.pairPlusBet;
-	}
-	
-	public void playerTwoFolds(){
-		playerTwo.totalWinnings = playerTwo.totalWinnings - playerTwo.anteBet - playerTwo.pairPlusBet;
-	}
-	
+
 	public void playerOneSetPlayWager(){
 		playerOne.playBet = playerOne.anteBet;
-		playerOne.totalWinnings = playerOne.totalWinnings - playerOne.anteBet
-				- playerOne.pairPlusBet - playerOne.playBet;
-
 	}
-
-	public void calculatePlayerOneWinnings(){
+	public void playerOneFolds(){
 		playerOne.totalWinnings = playerOne.totalWinnings
-				+ playerOne.anteBet + playerOne.playBet + playerOne.pairPlusBet;
-
+				- playerOne.anteBet - playerOne.pairPlusBet;
 	}
-	
-	public void playerTwoSetPlayWager(){
-		playerTwo.playBet = playerTwo.anteBet;
+	public void playerTwoFolds(){
+		playerTwo.totalWinnings = playerTwo.totalWinnings
+				- playerTwo.anteBet - playerTwo.pairPlusBet;
+	}
+	public void dealerWinsPlayer1Loses(){
+		playerOne.totalWinnings = playerOne.totalWinnings - playerOne.anteBet - playerOne.playBet;
+	}
+	public void dealerLosesPlayer1Wins(){
+		playerOne.totalWinnings = playerOne.totalWinnings + 2 * (playerOne.anteBet + playerOne.playBet);
+	}
+	public void reset(){
+		playerOne = new Player();
+		playerTwo = new Player();
+		theDealer = new Dealer();
 	}
 }
