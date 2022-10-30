@@ -351,6 +351,7 @@ public class PokerMain extends Application {
 		dealBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				try{
+					// Try saving wagers into game logic. If input other than numbers, throw an error dialog box
 					game.playerOne.anteBet = Integer.parseInt(player1Ante.getText());
 					game.playerTwo.anteBet = Integer.parseInt(player2Ante.getText());
 					game.playerOne.pairPlusBet = Integer.parseInt(player1PairPlus.getText());
@@ -386,6 +387,9 @@ public class PokerMain extends Application {
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(false);
 				player2FoldBtn.setDisable(false);
+				
+				game.playerOne.playCurrentRound = true;
+				
 			}
 		});
 		
@@ -396,6 +400,8 @@ public class PokerMain extends Application {
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(false);
 				player2FoldBtn.setDisable(false);
+				
+				game.playerOne.playCurrentRound = false;
 			}
 		});
 		
@@ -406,6 +412,8 @@ public class PokerMain extends Application {
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(true);
 				player2FoldBtn.setDisable(true);
+				
+				game.playerTwo.playCurrentRound = true;
 			}
 		});
 		
@@ -416,6 +424,8 @@ public class PokerMain extends Application {
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(true);
 				player2FoldBtn.setDisable(true);
+				
+				game.playerTwo.playCurrentRound = false;
 			}
 		});
 		

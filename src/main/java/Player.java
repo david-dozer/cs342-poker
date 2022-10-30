@@ -7,6 +7,7 @@ public class Player {
 	int playBet;
 	int pairPlusBet;
 	int totalWinnings;
+	boolean playCurrentRound;
 	
 	Player() {
 		this.hand = new ArrayList<Card>();
@@ -15,6 +16,10 @@ public class Player {
 		this.pairPlusBet = 0;
 		this.totalWinnings = 1000;
 	}
+	
+	public boolean getPlayCurrentRound(){return this.playCurrentRound;}
+	
+	public void setPlayCurrentRound(boolean val){this.playCurrentRound = val;}
 	
 	public int getTotalWinnings(){
 		return this.totalWinnings;
