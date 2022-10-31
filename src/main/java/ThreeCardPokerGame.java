@@ -24,6 +24,9 @@ public class ThreeCardPokerGame{
 	public void playerOneSetPlayWager(){
 		playerOne.playBet = playerOne.anteBet;
 	}
+	public void playerTwoSetPlayWager(){
+		playerTwo.playBet = playerTwo.anteBet;
+	}
 	public void playerOneFolds(){
 		playerOne.totalWinnings = playerOne.totalWinnings
 				- playerOne.anteBet - playerOne.pairPlusBet;
@@ -38,6 +41,14 @@ public class ThreeCardPokerGame{
 	public void dealerLosesPlayer1Wins(){
 		playerOne.totalWinnings = playerOne.totalWinnings + 2 * (playerOne.anteBet + playerOne.playBet);
 	}
+
+	public void dealerWinsPlayer2Loses(){
+		playerTwo.totalWinnings = playerTwo.totalWinnings - playerTwo.anteBet - playerTwo.playBet;
+	}
+	public void dealerLosesPlayer2Wins(){
+		playerTwo.totalWinnings = playerTwo.totalWinnings + 2 * (playerTwo.anteBet + playerTwo.playBet);
+	}
+
 	public void reset(){
 		playerOne = new Player();
 		playerTwo = new Player();

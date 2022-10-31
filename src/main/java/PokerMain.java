@@ -1,3 +1,4 @@
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -17,6 +18,9 @@ import javafx.application.Platform;
 import javafx.scene.text.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.util.Duration;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class PokerMain extends Application {
@@ -159,16 +163,15 @@ public class PokerMain extends Application {
 		// Create grid pane to showcase poker table
 		GridPane pokerTable = new GridPane();
 		pokerTable.setPadding(new Insets(10,10,10,10));
-		Image card1 = new Image(cardBack.getPath());
-		ImageView dealerCard1 = new ImageView(card1);
-		ImageView dealerCard2 = new ImageView(card1);
-		ImageView dealerCard3 = new ImageView(card1);
-		ImageView player1Card1 = new ImageView(card1);
-		ImageView player1Card2 = new ImageView(card1);
-		ImageView player1Card3 = new ImageView(card1);
-		ImageView player2Card1 = new ImageView(card1);
-		ImageView player2Card2 = new ImageView(card1);
-		ImageView player2Card3 = new ImageView(card1);
+		ImageView dealerCard1 = new ImageView(new Image(cardBack.getPath()));
+		ImageView dealerCard2 = new ImageView(new Image(cardBack.getPath()));
+		ImageView dealerCard3 = new ImageView(new Image(cardBack.getPath()));
+		ImageView player1Card1 = new ImageView(new Image(cardBack.getPath()));
+		ImageView player1Card2 = new ImageView(new Image(cardBack.getPath()));
+		ImageView player1Card3 = new ImageView(new Image(cardBack.getPath()));
+		ImageView player2Card1 = new ImageView(new Image(cardBack.getPath()));
+		ImageView player2Card2 = new ImageView(new Image(cardBack.getPath()));
+		ImageView player2Card3 = new ImageView(new Image(cardBack.getPath()));
 		HBox dealerLblBox = new HBox();
 		Label dealerLbl = new Label("Dealer");
 		dealerLbl.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 16));
@@ -249,7 +252,7 @@ public class PokerMain extends Application {
 		setImageControls.setAlignment(Pos.CENTER);
 		setImageControls.setSpacing(5);
 		Label imagePathLbl = new Label("Card Backside Image (120x180 only):");
-		TextField imagePath = new TextField("C:/Users/[account]/Pictures/[something].jpg");
+		TextField imagePath = new TextField("/hallenbeck-120x180.jpg");
 		Button setNewImage = new Button("Set card backside!");
 		imagePath.setMaxWidth(400);
 		setImageControls.getChildren().addAll(imagePathLbl, imagePath, setNewImage);
@@ -351,6 +354,9 @@ public class PokerMain extends Application {
 		dealBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				try{
+					dealerCard1.setImage(new Image(cardBack.getPath()));
+					dealerCard2.setImage(new Image(cardBack.getPath()));
+					dealerCard3.setImage(new Image(cardBack.getPath()));
 					// Try saving wagers into game logic. If input other than numbers, throw an error dialog box
 					game.playerOne.anteBet = Integer.parseInt(player1Ante.getText());
 					game.playerTwo.anteBet = Integer.parseInt(player2Ante.getText());
@@ -416,7 +422,7 @@ public class PokerMain extends Application {
 		
 		player1PlayBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				status.setText("P1 played. P2, please play or fold! Dealer will now show its cards after!");
+				status.setText("P1 played. P2, please play or fold! Dealer will show its cards after!");
 				player1PlayBtn.setDisable(true);
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(false);
@@ -431,7 +437,7 @@ public class PokerMain extends Application {
 		
 		player1FoldBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				status.setText("P1 folded. P2, please play or fold! Dealer will now show its cards after!");
+				status.setText("P1 folded. P2, please play or fold! Dealer will show its cards after!");
 				player1PlayBtn.setDisable(true);
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(false);
@@ -448,6 +454,7 @@ public class PokerMain extends Application {
 		
 		player2PlayBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
+				status.setText(status.getText().concat("P2 played. Dealer will now show its cards!"));
 				player1PlayBtn.setDisable(true);
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(true);
@@ -455,21 +462,25 @@ public class PokerMain extends Application {
 				dealBtn.setDisable(false);
 				
 				game.playerTwo.playCurrentRound = true;
+
+				game.playerTwoSetPlayWager();
+				player2Play.setText(Integer.toString(game.playerTwo.playBet));
 				
 				game.dealerGetCards();
 				
 				dealerCard1.setImage(new Image(game.theDealer.dealersHand.get(0).url));
 				dealerCard2.setImage(new Image(game.theDealer.dealersHand.get(1).url));
 				dealerCard3.setImage(new Image(game.theDealer.dealersHand.get(2).url));
-				
-				// TODO dealer performs payouts
-				
 
-				// If the player continues, they will make a play wager (already done)
+				// TODO dealer performs payouts
+				/*********************************************************************************
+				 * Game Logic goes here
+				 * ******************************************************************************/
+				// If the player 1 continues, they will make a play wager (already done)
 				// (this must be equal to the amount of the ante wager).
 				if(game.playerOne.playCurrentRound == true){
 					// At this point, the dealer will show their cards. If the dealer does not have at least a
-					// Queen high or better, the play wager is returned to the players who did not fold and
+					// Queen high or better, the play wager is returned to the player1 who did not fold and
 					// the ante bet is pushed to the next hand.
 					int outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerOne.hand);
 					if(outcome == 0){
@@ -477,23 +488,71 @@ public class PokerMain extends Application {
 					}
 					else if(outcome == 1){
 						status.setText("P1 loses to Dealer!");
-						
+						game.dealerWinsPlayer1Loses();
+						player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
 					}
 					else if (outcome == 2){
 						status.setText("P1 wins over Dealer!");
-
+						game.dealerLosesPlayer1Wins();
+						player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
 					}
 				}
+				// If the player 2 continues, they will make a play wager (already done)
+				// (this must be equal to the amount of the ante wager).
+				if(game.playerTwo.playCurrentRound == true){
+					// At this point, the dealer will show their cards. If the dealer does not have at least a
+					// Queen high or better, the play wager is returned to the player1 who did not fold and
+					// the ante bet is pushed to the next hand.
+					int outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerTwo.hand);
+					if(outcome == 0){
+						//status.setText("No one wins or dealer does not have queen or higher.");
+					}
+					else if(outcome == 1){
+						status.setText(status.getText().concat(" P2 loses to Dealer!"));
+						game.dealerWinsPlayer2Loses();
+						player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
+					}
+					else if (outcome == 2){
+						status.setText(status.getText().concat(" P2 wins over Dealer!"));
+						game.dealerLosesPlayer2Wins();
+						player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
+					}
+				}
+				/*********************************************************************************
+				 * Game Logic ends here
+				 * ******************************************************************************/
+				// Transition
+				dealBtn.setDisable(true);
+				PauseTransition t = new PauseTransition(Duration.seconds(5));
+				t.setOnFinished(event ->{
+					dealerCard1.setImage(new Image(cardBack.getPath()));
+					dealerCard2.setImage(new Image(cardBack.getPath()));
+					dealerCard3.setImage(new Image(cardBack.getPath()));
+					player1Card1.setImage(new Image(cardBack.getPath()));
+					player1Card2.setImage(new Image(cardBack.getPath()));
+					player1Card3.setImage(new Image(cardBack.getPath()));
+					player2Card1.setImage(new Image(cardBack.getPath()));
+					player2Card2.setImage(new Image(cardBack.getPath()));
+					player2Card3.setImage(new Image(cardBack.getPath()));
+					dealBtn.setDisable(false);
+					player1Ante.setDisable(false);
+					player1PairPlus.setDisable(false);
+					player2Ante.setDisable(false);
+					player2PairPlus.setDisable(false);
+					status.setText("P1 and P2: Please enter your Ante and Pair Plus bets. Then, press Deal!");
+				});
+				t.play();
 			}
 		});
 		
 		player2FoldBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				status.setText("P2 folded. Dealer will now show its cards!");
+				status.setText(status.getText().concat("P2 folded. Dealer will now show its cards!"));
 				player1PlayBtn.setDisable(true);
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(true);
 				player2FoldBtn.setDisable(true);
+				dealBtn.setDisable(false);
 				
 				game.playerTwo.playCurrentRound = false;
 				//If they fold, they lose their ante wager and pair plus wager(if they made one).
@@ -508,6 +567,75 @@ public class PokerMain extends Application {
 				dealerCard3.setImage(new Image(game.theDealer.dealersHand.get(2).url));
 				
 				// TODO dealer performs payouts
+				/*********************************************************************************
+				 * Game Logic goes here
+				 * ******************************************************************************/
+				// If the player 1 continues, they will make a play wager (already done)
+				// (this must be equal to the amount of the ante wager).
+				if(game.playerOne.playCurrentRound == true){
+					// At this point, the dealer will show their cards. If the dealer does not have at least a
+					// Queen high or better, the play wager is returned to the player1 who did not fold and
+					// the ante bet is pushed to the next hand.
+					int outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerOne.hand);
+					if(outcome == 0){
+						status.setText("No one wins or dealer does not have queen or higher.");
+					}
+					else if(outcome == 1){
+						status.setText("P1 loses to Dealer!");
+						game.dealerWinsPlayer1Loses();
+						player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
+					}
+					else if (outcome == 2){
+						status.setText("P1 wins over Dealer!");
+						game.dealerLosesPlayer1Wins();
+						player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
+					}
+				}
+				// If the player 2 continues, they will make a play wager (already done)
+				// (this must be equal to the amount of the ante wager).
+				if(game.playerTwo.playCurrentRound == true){
+					// At this point, the dealer will show their cards. If the dealer does not have at least a
+					// Queen high or better, the play wager is returned to the player1 who did not fold and
+					// the ante bet is pushed to the next hand.
+					int outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerTwo.hand);
+					if(outcome == 0){
+						//status.setText("No one wins or dealer does not have queen or higher.");
+					}
+					else if(outcome == 1){
+						status.setText(status.getText().concat(" P2 loses to Dealer!"));
+						game.dealerWinsPlayer2Loses();
+						player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
+					}
+					else if (outcome == 2){
+						status.setText(status.getText().concat(" P2 wins over Dealer!"));
+						game.dealerLosesPlayer2Wins();
+						player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
+					}
+				}
+				/*********************************************************************************
+				 * Game Logic ends here
+				 * ******************************************************************************/
+
+				dealBtn.setDisable(true);
+				PauseTransition t = new PauseTransition(Duration.seconds(5));
+				t.setOnFinished(event ->{
+					dealerCard1.setImage(new Image(cardBack.getPath()));
+					dealerCard2.setImage(new Image(cardBack.getPath()));
+					dealerCard3.setImage(new Image(cardBack.getPath()));
+					player1Card1.setImage(new Image(cardBack.getPath()));
+					player1Card2.setImage(new Image(cardBack.getPath()));
+					player1Card3.setImage(new Image(cardBack.getPath()));
+					player2Card1.setImage(new Image(cardBack.getPath()));
+					player2Card2.setImage(new Image(cardBack.getPath()));
+					player2Card3.setImage(new Image(cardBack.getPath()));
+					dealBtn.setDisable(false);
+					player1Ante.setDisable(false);
+					player1PairPlus.setDisable(false);
+					player2Ante.setDisable(false);
+					player2PairPlus.setDisable(false);
+					status.setText("P1 and P2: Please enter your Ante and Pair Plus bets. Then, press Deal!");
+				});
+				t.play();
 			}
 		});
 		
