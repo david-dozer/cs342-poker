@@ -17,9 +17,10 @@ public class Player {
 		this.totalWinnings = 1000;
 	}
 	
-	public boolean getPlayCurrentRound(){return this.playCurrentRound;}
+	// return true if player is playing, false if not.
+	public boolean getPlayCurrentRound() {return this.playCurrentRound;}
 	
-	public void setPlayCurrentRound(boolean val){this.playCurrentRound = val;}
+	public void setPlayCurrentRound(boolean val) {this.playCurrentRound = val;}
 	
 	public int getTotalWinnings(){
 		return this.totalWinnings;
