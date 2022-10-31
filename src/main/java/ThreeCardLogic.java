@@ -67,7 +67,7 @@ public class ThreeCardLogic {
 		if (typeHand == 0){
 			return 0;
 		}
-		if (typeHand == 5) {  // 
+		if (typeHand == 5) {  //
 			factor = 1;  // 1 to 1
 		} else if (typeHand == 4) {
 			factor = 3;  // 3 to 1
