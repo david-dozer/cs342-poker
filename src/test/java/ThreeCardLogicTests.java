@@ -310,6 +310,46 @@ class ThreeCardLogicTests {
 		// h1, or, the dealer wins, so return 1
 		Assertions.assertEquals(1, ThreeCardLogic.compareHands(h1, h2));
 	}
-
-
+	
+	@Test
+	void compHands12() {  // test tie
+		ArrayList<Card> h1 = new ArrayList<Card> ();
+		h1.add(new Card('C', 13));
+		h1.add(new Card('C', 14));
+		h1.add(new Card('C', 12));
+		Assertions.assertEquals(1, ThreeCardLogic.evalHand(h1));
+//		for (Card h : h1) {
+//			System.out.println(h.suit + " " + h.value);
+//		}
+		ArrayList<Card> h2 = new ArrayList<Card> ();
+		h2.add(new Card('D', 14));
+		h2.add(new Card('D', 12));
+		h2.add(new Card('D', 13));
+		Assertions.assertEquals(1, ThreeCardLogic.evalHand(h2));
+		// h1, or, the dealer wins, so return 1
+		Assertions.assertEquals(0, ThreeCardLogic.compareHands(h1, h2));
+	}
+	
+	@Test
+	void compHands13() {  // infinite recursion test
+		ArrayList<Card> h1 = new ArrayList<Card> ();
+		h1.add(new Card('H', 8));
+		h1.add(new Card('S', 7));
+		h1.add(new Card('S', 2));
+		Assertions.assertEquals(0, ThreeCardLogic.evalHand(h1));
+		ArrayList<Card> h2 = new ArrayList<Card> ();
+		h2.add(new Card('C', 6));
+		h2.add(new Card('C', 12));
+		h2.add(new Card('D', 2));
+		Assertions.assertEquals(0, ThreeCardLogic.evalHand(h2));
+		// h1, or, the dealer wins, so return 1
+		ArrayList<Card> d = new ArrayList<Card> ();
+		d.add(new Card('C', 5));
+		d.add(new Card('H', 12));
+		d.add(new Card('D', 7));
+		Assertions.assertEquals(0, ThreeCardLogic.evalHand(d));
+		Assertions.assertEquals(1, ThreeCardLogic.compareHands(d, h1));
+		Assertions.assertEquals(1, ThreeCardLogic.compareHands(d, h2));
+	}
+	
 };
