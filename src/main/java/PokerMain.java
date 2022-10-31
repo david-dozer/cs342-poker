@@ -435,7 +435,6 @@ public class PokerMain extends Application {
 				game.playerOneSetPlayWager();
 				player1Play.setText(Integer.toString(game.playerOne.playBet));
 
-				game.player1SetPairPlusBet(game.playerOne.pairPlusBet);
 				game.player1EvaluatePairPlus();
 			}
 		});
@@ -470,7 +469,6 @@ public class PokerMain extends Application {
 				game.playerTwoSetPlayWager();
 				player2Play.setText(Integer.toString(game.playerTwo.playBet));
 
-				game.player2SetPairPlusBet(game.playerTwo.pairPlusBet);
 				game.player2EvaluatePairPlus();
 				
 				game.dealerGetCards();
