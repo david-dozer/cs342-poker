@@ -454,10 +454,8 @@ public class PokerMain extends Application {
 				
 				game.playerOne.playCurrentRound = false;
 				//If they fold, they lose their ante wager and pair plus wager(if they made one).
-				if(game.playerOne.playCurrentRound == false) {
-					game.playerOneFolds();
-					player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
-				}
+				game.playerOneFolds();
+				player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
 			}
 		});
 		
@@ -586,10 +584,8 @@ public class PokerMain extends Application {
 				
 				game.playerTwo.playCurrentRound = false;
 				//If they fold, they lose their ante wager and pair plus wager(if they made one).
-				if(game.playerOne.playCurrentRound == false) {
-					game.playerTwoFolds();
-					player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
-				}
+				game.playerTwoFolds();
+				player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
 				
 				game.dealerGetCards();
 				dealerCard1.setImage(new Image(game.theDealer.dealersHand.get(0).url));
