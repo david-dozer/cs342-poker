@@ -48,6 +48,28 @@ public class ThreeCardPokerGame{
 	public void dealerLosesPlayer2Wins(){
 		playerTwo.totalWinnings = playerTwo.totalWinnings + 2 * (playerTwo.anteBet + playerTwo.playBet);
 	}
+	public void player1SetPairPlusBet(int bet){
+		playerOne.pairPlusBet = bet;
+	}
+	public void player2SetPairPlusBet(int bet){
+		playerTwo.pairPlusBet = bet;
+	}
+	public void player1EvaluatePairPlus()
+	{
+		playerOne.totalWinnings = playerOne.totalWinnings - playerOne.pairPlusBet;
+		int hasWin = ThreeCardLogic.evalPPWinnings(playerOne.hand, playerOne.pairPlusBet);
+		playerOne.totalWinnings = playerOne.totalWinnings + hasWin;
+	}
+
+	public void player2EvaluatePairPlus()
+	{
+		playerTwo.totalWinnings = playerTwo.totalWinnings - playerTwo.pairPlusBet;
+		int hasWin = ThreeCardLogic.evalPPWinnings(playerTwo.hand, playerTwo.pairPlusBet);
+		playerTwo.totalWinnings = playerTwo.totalWinnings + hasWin;
+
+	}
+
+
 
 	public void reset(){
 		playerOne = new Player();

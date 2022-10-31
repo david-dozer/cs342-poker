@@ -434,6 +434,9 @@ public class PokerMain extends Application {
 
 				game.playerOneSetPlayWager();
 				player1Play.setText(Integer.toString(game.playerOne.playBet));
+
+				game.player1SetPairPlusBet(game.playerOne.pairPlusBet);
+				game.player1EvaluatePairPlus();
 			}
 		});
 		
@@ -466,6 +469,9 @@ public class PokerMain extends Application {
 
 				game.playerTwoSetPlayWager();
 				player2Play.setText(Integer.toString(game.playerTwo.playBet));
+
+				game.player2SetPairPlusBet(game.playerTwo.pairPlusBet);
+				game.player2EvaluatePairPlus();
 				
 				game.dealerGetCards();
 				
@@ -545,7 +551,7 @@ public class PokerMain extends Application {
 				 * ******************************************************************************/
 				// Transition
 				dealBtn.setDisable(true);
-				PauseTransition t = new PauseTransition(Duration.seconds(5));
+				PauseTransition t = new PauseTransition(Duration.seconds(20));
 				t.setOnFinished(event ->{
 					dealerCard1.setImage(new Image(cardBack.getPath()));
 					dealerCard2.setImage(new Image(cardBack.getPath()));
@@ -653,7 +659,7 @@ public class PokerMain extends Application {
 				 * ******************************************************************************/
 
 				dealBtn.setDisable(true);
-				PauseTransition t = new PauseTransition(Duration.seconds(5));
+				PauseTransition t = new PauseTransition(Duration.seconds(20));
 				t.setOnFinished(event ->{
 					dealerCard1.setImage(new Image(cardBack.getPath()));
 					dealerCard2.setImage(new Image(cardBack.getPath()));
