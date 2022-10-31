@@ -28,6 +28,8 @@ public class ThreeCardPokerGame{
 	public void playerTwoSetPlayWager(){
 		playerTwo.playBet = playerTwo.anteBet;
 	}
+	
+	// outcomes, compute player winnings
 	public void playerOneFolds(){
 		playerOne.totalWinnings = playerOne.totalWinnings
 				- playerOne.anteBet - playerOne.pairPlusBet;
@@ -49,6 +51,8 @@ public class ThreeCardPokerGame{
 	public void dealerLosesPlayer2Wins(){
 		playerTwo.totalWinnings = playerTwo.totalWinnings + 2 * (playerTwo.anteBet + playerTwo.playBet);
 	}
+	
+	// independent pair plus bets
 	public void player1EvaluatePairPlus()
 	{
 		playerOne.totalWinnings = playerOne.totalWinnings - playerOne.pairPlusBet;
