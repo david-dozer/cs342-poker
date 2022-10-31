@@ -160,7 +160,7 @@ public class PokerMain extends Application {
 
 
 		
-		// Create grid pane to showcase poker table
+		// Create grid pane to showcase poker table with labels
 		GridPane pokerTable = new GridPane();
 		pokerTable.setPadding(new Insets(10,10,10,10));
 		ImageView dealerCard1 = new ImageView(new Image(cardBack.getPath()));
@@ -248,6 +248,7 @@ public class PokerMain extends Application {
 		newLook.setPadding(new Insets(15, 12, 15, 12));
 		newLook.setSpacing(50);
 		newLook.setAlignment(Pos.CENTER);
+		// Optional change poker card back images
 		VBox setImageControls = new VBox();
 		setImageControls.setAlignment(Pos.CENTER);
 		setImageControls.setSpacing(5);
@@ -322,7 +323,7 @@ public class PokerMain extends Application {
 		/***********************************************************************
 		*
 		*
-		* Code below fills in values like text fields
+		* Code below fills in values like text fields when game is loaded
 		*
 		*
 		************************************************************************/
@@ -365,6 +366,7 @@ public class PokerMain extends Application {
 					game.playerOne.pairPlusBet = Integer.parseInt(player1PairPlus.getText());
 					game.playerTwo.pairPlusBet = Integer.parseInt(player2PairPlus.getText());
 					
+					//Check if values are in valid range
 					if(game.playerOne.anteBet < 5 || game.playerOne.anteBet > 25){
 						throw new Exception("Player 1 ante bet exceeds limitations!\nBet must be >= 5 or <= 25!");
 					}
@@ -383,6 +385,7 @@ public class PokerMain extends Application {
 						}
 					}
 					
+					//Disable Deal button, enable player 1 buttons, disable player 2 buttons
 					player1PlayBtn.setDisable(false);
 					player1FoldBtn.setDisable(false);
 					player2PlayBtn.setDisable(true);
@@ -397,10 +400,11 @@ public class PokerMain extends Application {
 					dealBtn.setDisable(true);
 					
 					// TODO game logic goes here
-					
+					// Get new cards for both players
 					game.playerOneGetCards();
 					game.playerTwoGetCards();
-				
+					
+					// show player cards on poker table
 					player1Card1.setImage(new Image(game.playerOne.hand.get(0).url));
 					player1Card2.setImage(new Image(game.playerOne.hand.get(1).url));
 					player1Card3.setImage(new Image(game.playerOne.hand.get(2).url));
@@ -409,6 +413,7 @@ public class PokerMain extends Application {
 					player2Card3.setImage(new Image(game.playerTwo.hand.get(2).url));
 				}
 				catch(Exception f){
+					// Depending on error message, show a error box with correct message
 					String errMsg;
 					if(f.getMessage().substring(0,3).equals("For")){
 						errMsg = "P1 or P2: all bets must be numeric!";
