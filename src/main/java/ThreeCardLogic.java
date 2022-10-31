@@ -81,27 +81,24 @@ public class ThreeCardLogic {
 		return (factor * bet) + bet;
 	}
 	
-	private static int compHighCards(ArrayList<Card> player, ArrayList<Card> dealer, int topCardIndex) {
+	private static int compHighCards(ArrayList<Card> player, ArrayList<Card> dealer) {
         // get highest card at index
-		// top card index starts at 1, since top ind of size 3 is n-1, which is 2
-		// top card ind. will increment if both highs are same at the index
-        if (topCardIndex > 3) {return 0;}       // examined all cards, 
-        
         ArrayList<Integer>playerVals = sortCardValues(player);
         ArrayList<Integer>dealerVals = sortCardValues(dealer);
         
-		if (dealerVals.get(3-topCardIndex) < 12) {return 0;}  // dealer not have queen high
+		if (dealerVals.get(2) < 12) {return 0;}  // dealer not have queen high
         
-        // Highest card is last in list, keep going until vals not equal
-        int dealerHigh = dealerVals.get(3-topCardIndex);
-        int playerHigh = playerVals.get(3-topCardIndex);
-        
-        if (dealerHigh == playerHigh) {
-            return compHighCards(dealer, player, topCardIndex++);  // Eval based on next highest card
-        } 
-        
-        // 1, dealer has higher card, 2, player has higher card
-        if (dealerHigh > playerHigh) {return 1;} else {return 2;}
+        // Highest card is last in list, keep going until not equal
+		int i = 2;
+		while (i != 0) {
+			int dealerHigh = dealerVals.get(i);
+	        int playerHigh = playerVals.get(i);
+	        
+	        // 1, dealer has higher card, 2, player has higher card, else, equal, keep going
+	        if (dealerHigh > playerHigh) {return 1;} 
+	        else if (playerHigh > dealerHigh){return 2;} else {i--;}
+		}
+		return 0;  // went through all cards
     }
 	
 	// 0, nobody wins, 1, dealer wins, 2, player wins
@@ -144,7 +141,7 @@ public class ThreeCardLogic {
 				else if (sumDealer > sumPlayer) {return 1;}
 				else if (sumPlayer == sumDealer) { return 0;}
 			} else if (dealerEval == 0 || dealerEval == 4) {  // compare high cards
-				return compHighCards(player, dealer, 1);  // start high card comparison
+				return compHighCards(player, dealer);  // start high card comparison
 			}
 		}
 		return 0;
