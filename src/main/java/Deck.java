@@ -4,7 +4,6 @@ import java.util.Collections;
 
 public class Deck extends ArrayList<Card> {
 	int size;
-	// Card[] deckOfCards = new Card[size];
 	
 	Deck() {
 		size = 52;
@@ -32,7 +31,6 @@ public class Deck extends ArrayList<Card> {
         	for (int v : vals) {  // in arrayList, not bracket operator, but get
             	Card card = new Card(s, v);
             	this.add(card); // this.get(count).setURL(urls[count]);  
-                // count++;
             }
         }
         Collections.shuffle(this);
