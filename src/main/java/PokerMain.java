@@ -354,9 +354,11 @@ public class PokerMain extends Application {
 		dealBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				try{
+					/*
 					dealerCard1.setImage(new Image(cardBack.getPath()));
 					dealerCard2.setImage(new Image(cardBack.getPath()));
 					dealerCard3.setImage(new Image(cardBack.getPath()));
+					*/
 					// Try saving wagers into game logic. If input other than numbers, throw an error dialog box
 					game.playerOne.anteBet = Integer.parseInt(player1Ante.getText());
 					game.playerTwo.anteBet = Integer.parseInt(player2Ante.getText());
@@ -422,7 +424,7 @@ public class PokerMain extends Application {
 		
 		player1PlayBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				status.setText("P1 played. P2, please play or fold! Dealer will show its cards after!");
+				status.setText("P2, please play or fold!");
 				player1PlayBtn.setDisable(true);
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(false);
@@ -437,7 +439,7 @@ public class PokerMain extends Application {
 		
 		player1FoldBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				status.setText("P1 folded. P2, please play or fold! Dealer will show its cards after!");
+				status.setText("P2, please play or fold!");
 				player1PlayBtn.setDisable(true);
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(false);
@@ -454,7 +456,6 @@ public class PokerMain extends Application {
 		
 		player2PlayBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				status.setText(status.getText().concat("P2 played. Dealer will now show its cards!"));
 				player1PlayBtn.setDisable(true);
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(true);
@@ -476,44 +477,65 @@ public class PokerMain extends Application {
 				/*********************************************************************************
 				 * Game Logic goes here
 				 * ******************************************************************************/
+				if(game.playerOne.playCurrentRound == false && game.playerTwo.playCurrentRound == false){
+					status.setText("P1 folded. P2 folded. Nothing this round");
+				}
 				// If the player 1 continues, they will make a play wager (already done)
 				// (this must be equal to the amount of the ante wager).
+				int player1Outcome = 0;
 				if(game.playerOne.playCurrentRound == true){
 					// At this point, the dealer will show their cards. If the dealer does not have at least a
 					// Queen high or better, the play wager is returned to the player1 who did not fold and
 					// the ante bet is pushed to the next hand.
-					int outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerOne.hand);
-					if(outcome == 0){
+					player1Outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerOne.hand);
+					if(player1Outcome == 0){
 						status.setText("No one wins or dealer does not have queen or higher.");
 					}
-					else if(outcome == 1){
-						status.setText("P1 loses to Dealer!");
+					else if(player1Outcome == 1){
+						//status.setText("P1 loses to Dealer!");
 						game.dealerWinsPlayer1Loses();
 						player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
 					}
-					else if (outcome == 2){
-						status.setText("P1 wins over Dealer!");
+					else if (player1Outcome == 2){
+						//status.setText("P1 wins over Dealer!");
 						game.dealerLosesPlayer1Wins();
 						player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
 					}
 				}
 				// If the player 2 continues, they will make a play wager (already done)
 				// (this must be equal to the amount of the ante wager).
+				int player2Outcome = 0;
 				if(game.playerTwo.playCurrentRound == true){
 					// At this point, the dealer will show their cards. If the dealer does not have at least a
 					// Queen high or better, the play wager is returned to the player1 who did not fold and
 					// the ante bet is pushed to the next hand.
-					int outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerTwo.hand);
-					if(outcome == 0){
-						//status.setText("No one wins or dealer does not have queen or higher.");
+					player2Outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerTwo.hand);
+					if(player2Outcome == 0){
+						status.setText("No one wins or dealer does not have queen or higher.");
 					}
-					else if(outcome == 1){
-						status.setText(status.getText().concat(" P2 loses to Dealer!"));
+					else if(player2Outcome == 1){
+						if(player1Outcome == 1) {
+							status.setText("P1 loses to Dealer! P2 loses to Dealer!");
+						}
+						else if (player1Outcome == 2) {
+							status.setText("P1 wins over Dealer! P2 loses to Dealer!");
+						}
+						else if (player1Outcome == 0){
+							status.setText("P2 loses to Dealer!");
+						}
 						game.dealerWinsPlayer2Loses();
 						player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
 					}
-					else if (outcome == 2){
-						status.setText(status.getText().concat(" P2 wins over Dealer!"));
+					else if (player2Outcome == 2){
+						if(player1Outcome == 1) {
+							status.setText("P1 loses to Dealer! P2 wins over Dealer!");
+						}
+						else if (player1Outcome == 2) {
+							status.setText("P1 wins over Dealer! P2 wins over Dealer!");
+						}
+						else if (player1Outcome == 0){
+							status.setText("P2 wins over Dealer!");
+						}
 						game.dealerLosesPlayer2Wins();
 						player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
 					}
@@ -547,7 +569,6 @@ public class PokerMain extends Application {
 		
 		player2FoldBtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				status.setText(status.getText().concat("P2 folded. Dealer will now show its cards!"));
 				player1PlayBtn.setDisable(true);
 				player1FoldBtn.setDisable(true);
 				player2PlayBtn.setDisable(true);
@@ -570,22 +591,26 @@ public class PokerMain extends Application {
 				/*********************************************************************************
 				 * Game Logic goes here
 				 * ******************************************************************************/
+				if(game.playerOne.playCurrentRound == false && game.playerTwo.playCurrentRound == false){
+					status.setText("P1 folded. P2 folded. Nothing this round");
+				}
 				// If the player 1 continues, they will make a play wager (already done)
 				// (this must be equal to the amount of the ante wager).
+				int player1Outcome = 0;
 				if(game.playerOne.playCurrentRound == true){
 					// At this point, the dealer will show their cards. If the dealer does not have at least a
 					// Queen high or better, the play wager is returned to the player1 who did not fold and
 					// the ante bet is pushed to the next hand.
-					int outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerOne.hand);
-					if(outcome == 0){
+					player1Outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerOne.hand);
+					if(player1Outcome == 0){
 						status.setText("No one wins or dealer does not have queen or higher.");
 					}
-					else if(outcome == 1){
+					else if(player1Outcome == 1){
 						status.setText("P1 loses to Dealer!");
 						game.dealerWinsPlayer1Loses();
 						player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
 					}
-					else if (outcome == 2){
+					else if (player1Outcome == 2){
 						status.setText("P1 wins over Dealer!");
 						game.dealerLosesPlayer1Wins();
 						player1Winnings.setText(Integer.toString(game.playerOne.totalWinnings));
@@ -593,21 +618,32 @@ public class PokerMain extends Application {
 				}
 				// If the player 2 continues, they will make a play wager (already done)
 				// (this must be equal to the amount of the ante wager).
+				int player2Outcome = 0;
 				if(game.playerTwo.playCurrentRound == true){
 					// At this point, the dealer will show their cards. If the dealer does not have at least a
 					// Queen high or better, the play wager is returned to the player1 who did not fold and
 					// the ante bet is pushed to the next hand.
-					int outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerTwo.hand);
-					if(outcome == 0){
-						//status.setText("No one wins or dealer does not have queen or higher.");
+					player2Outcome = ThreeCardLogic.compareHands(game.theDealer.dealersHand, game.playerTwo.hand);
+					if(player2Outcome == 0){
+						status.setText("No one wins or dealer does not have queen or higher.");
 					}
-					else if(outcome == 1){
-						status.setText(status.getText().concat(" P2 loses to Dealer!"));
+					else if(player2Outcome == 1){
+						if(player1Outcome == 1) {
+							status.setText("P1 loses to Dealer! P2 loses to Dealer!");
+						}
+						else if (player1Outcome == 2) {
+							status.setText("P1 wins over Dealer! P2 loses to Dealer!");
+						}
 						game.dealerWinsPlayer2Loses();
 						player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
 					}
-					else if (outcome == 2){
-						status.setText(status.getText().concat(" P2 wins over Dealer!"));
+					else if (player2Outcome == 2){
+						if(player1Outcome == 1) {
+							status.setText("P1 loses to Dealer! P2 wins over Dealer!");
+						}
+						else if (player1Outcome == 2) {
+							status.setText("P1 wins over Dealer! P2 wins over Dealer!");
+						}
 						game.dealerLosesPlayer2Wins();
 						player2Winnings.setText(Integer.toString(game.playerTwo.totalWinnings));
 					}
