@@ -50,7 +50,6 @@ public class ThreeCardLogic {
 		} else if (sameSuit(hand)) {
 			eval = 4;
 		} else if (inSequence(CardVals) && !sameSuit(hand)) {
-//				System.out.printf("STRAIGHT INSHALLAH");
 			eval = 3;
 		}
 		else if (!inSequence(CardVals) && !sameSuit(hand)) {
@@ -82,7 +81,7 @@ public class ThreeCardLogic {
 	}
 
 	private static int compHighCards(ArrayList<Card> player, ArrayList<Card> dealer) {
-		// get highest card at index
+		// get highest card at index, sort cards
 		ArrayList<Integer>playerVals = sortCardValues(player);
 		ArrayList<Integer>dealerVals = sortCardValues(dealer);
 
@@ -94,7 +93,7 @@ public class ThreeCardLogic {
 			int dealerHigh = dealerVals.get(i);
 			int playerHigh = playerVals.get(i);
 
-			// 1, dealer has higher card, 2, player has higher card, else, equal, keep going
+			// 1, dealer has higher card, 2, player has higher card, else, it is equal, keep going
 			if (dealerHigh > playerHigh) {return 1;}
 			else if (playerHigh > dealerHigh){return 2;} else {i--;}
 		}
